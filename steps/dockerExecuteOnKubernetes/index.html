@@ -912,6 +912,12 @@
 <td></td>
 </tr>
 <tr>
+<td>containerShell</td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td>containerWorkspaces</td>
 <td>no</td>
 <td></td>
@@ -967,6 +973,7 @@
 <p><code>containerName</code>: optional configuration in combination with containerMap to define the container where the commands should be executed in</p>
 </li>
 <li><code>containerPortMappings</code>: Map which defines per docker image the port mappings, like <code>containerPortMappings: ['selenium/standalone-chrome': [[name: 'selPort', containerPort: 4444, hostPort: 4444]]]</code></li>
+<li><code>containerShell</code> allows to specify the shell to be executed for container with containerName</li>
 <li><code>containerWorkspaces</code> specifies workspace (=home directory of user) per container. If not provided <code>dockerWorkspace</code> will be used. If empty, home directory will not be set.</li>
 <li><code>dockerImage</code> Name of the docker image that should be used. If empty, Docker is not used.</li>
 <li><code>dockerEnvVars</code> Environment variables to set in the container, e.g. [http_proxy:'proxy:8080']</li>
