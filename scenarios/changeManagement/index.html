@@ -924,27 +924,28 @@
 </ul>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
 <p>In many SAP development scenarios, it is vital to synchronize both backend and frontend deliveries. These deliveries are typically an SAP UI5 application and an ABAP backend from which it is served. The SAP UI5 parts are often developed using agile practices and use Continuous Integration pipelines that automatically build, test, and deploy the application.</p>
+<p><strong>Note:</strong> This scenario description is an example. You can apply the process to other scenarios and component sets, as well.</p>
 <p>In this scenario, we want to show how an agile development process with Jenkins CI can automatically feed changes into SAP Solution Manager. In SAP Solution Manager, all parts of the application stack come together and can be subject to classic change and transport management.</p>
 <p>The basic workflow is as follows:</p>
 <ol>
 <li>
-<p>The pipeline scans the Git commit messages between <code>origin/master</code> and <code>HEAD</code> for a line like <code>ChangeDocument : &lt;changeDocumentId&gt;</code>, and validates that the change is in the correct status <code>in development</code>.The template for the commit message looks as follows:</p>
-<div class="codehilite"><pre><span></span>&lt;Commit Message Header&gt;
+<p>The pipeline scans the Git commit messages for a line like <code>ChangeDocument : &lt;changeDocumentId&gt;</code>, and validates that the change is in the correct status <code>in development</code>. For more information, see <a href="https://sap.github.io/jenkins-library/steps/checkChangeInDevelopment/">checkChangeInDevelopment</a>. An example for the commit message looks as follows:</p>
+<div class="codehilite"><pre><span></span>Fix terminology in documentation
 
-&lt;Commit Message Description&gt;
-
+Terminology must be consistent with official channels.
 ChangeDocument: &lt;Your Change Document ID&gt;
 </pre></div>
 
+<p><strong>Note:</strong> The blank line between message header and message description is mandatory.</p>
 </li>
 <li>
-<p>To communicate with SAP Solution Manager, the pipeline uses credentials that must be stored on Jenkins under the label <code>CM</code>.</p>
+<p>To communicate with SAP Solution Manager, the pipeline uses credentials that must be stored on Jenkins using the credential ID <code>CM</code>. For more information, see <a href="https://sap.github.io/jenkins-library/steps/checkChangeInDevelopment/">checkChangeInDevelopment</a>.</p>
 </li>
-<li>The required transport request is created on the fly. However, the change document can contain more components (for example, UI and backend components).</li>
+<li>The required transport request is created on the fly. <strong>Note:</strong> The change document can contain various components (for example, UI and backend components).</li>
 <li>The changes of your development team trigger the Jenkins pipeline. It builds and validates the changes and attaches them to the respective transport request.</li>
 <li>As soon as the development process is completed, the change document in SAP Solution Manager can be set to status <code>to be tested</code> and all components can be transported to the test system.</li>
 </ol>
-<p><img alt="Hybrid Application Development Workflow" src="../../images/SolMan_Scenario.png" title="Hybrid Application Development Workflow" /></p>
+<p><img alt="Hybrid Application Development Workflow" src="../../images/Scenario_SolMan.png" title="Hybrid Application Development Workflow" /></p>
 <h5 id="hybrid-application-development-worflow">Hybrid Application Development Worflow<a class="headerlink" href="#hybrid-application-development-worflow" title="Permanent link">&para;</a></h5>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <h3 id="jenkinsfile">Jenkinsfile<a class="headerlink" href="#jenkinsfile" title="Permanent link">&para;</a></h3>
@@ -981,6 +982,8 @@ ChangeDocument: &lt;Your Change Document ID&gt;
 <span class="l l-Scalar l-Scalar-Plain">steps</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">mtaBuild</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">buildTarget</span><span class="p p-Indicator">:</span> <span class="s">&#39;NEO&#39;</span>
+  <span class="l l-Scalar l-Scalar-Plain">transportRequestCreate</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">developmentSystemId</span><span class="p p-Indicator">:</span> <span class="s">&#39;&lt;value</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">developmentSystemId&gt;&#39;</span>
   <span class="l l-Scalar l-Scalar-Plain">transportRequestUploadFile</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">applicationId</span><span class="p p-Indicator">:</span> <span class="s">&#39;HCP&#39;</span>
 </pre></div>
