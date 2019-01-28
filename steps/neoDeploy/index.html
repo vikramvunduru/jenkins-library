@@ -947,25 +947,13 @@
 </thead>
 <tbody>
 <tr>
-<td><code>account</code></td>
-<td>no</td>
+<td><code>script</code></td>
+<td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>archivePath</code></td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>deployAccount</code> deprecated, use <code>account</code></td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>deployHost</code> deprecated, use <code>host</code></td>
+<td><code>neo</code></td>
 <td>no</td>
 <td></td>
 <td></td>
@@ -977,26 +965,45 @@
 <td><code>'mta'</code>, <code>'warParams'</code>, <code>'warPropertiesFile'</code></td>
 </tr>
 <tr>
-<td><code>host</code></td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>neoCredentialsId</code></td>
-<td>no</td>
-<td><code>'CI_CREDENTIALS_ID'</code></td>
-<td></td>
-</tr>
-<tr>
 <td><code>neoHome</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>script</code></td>
-<td>yes</td>
+<td><code>source</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The parameter <code>neo</code> is a map which contains the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>mandatory</th>
+<th>default</th>
+<th>possible values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>account</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>credentialsId</code></td>
+<td>no</td>
+<td><code>'CI_CREDENTIALS_ID'</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>no</td>
 <td></td>
 <td></td>
 </tr>
@@ -1014,7 +1021,13 @@
 </thead>
 <tbody>
 <tr>
-<td><code>archivePath</code></td>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>neo</code></td>
 <td>no</td>
 <td></td>
 <td></td>
@@ -1026,26 +1039,14 @@
 <td><code>'mta'</code>, <code>'warParams'</code>, <code>'warPropertiesFile'</code></td>
 </tr>
 <tr>
-<td><code>neoCredentialsId</code></td>
-<td>no</td>
-<td><code>'CI_CREDENTIALS_ID'</code></td>
-<td></td>
-</tr>
-<tr>
 <td><code>neoHome</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>propertiesFile</code></td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>script</code></td>
-<td>yes</td>
+<td><code>source</code></td>
+<td>no</td>
 <td></td>
 <td></td>
 </tr>
@@ -1054,6 +1055,31 @@
 <td>yes</td>
 <td><code>'deploy'</code></td>
 <td><code>'deploy'</code>, <code>'rolling-update'</code></td>
+</tr>
+</tbody>
+</table>
+<p>The parameter <code>neo</code> is a map which contains the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>mandatory</th>
+<th>default</th>
+<th>possible values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>credentialsId</code></td>
+<td>no</td>
+<td><code>'CI_CREDENTIALS_ID'</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>propertiesFile</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1069,31 +1095,13 @@
 </thead>
 <tbody>
 <tr>
-<td><code>account</code></td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>applicationName</code></td>
+<td><code>script</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>archivePath</code></td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>deployAccount</code> deprecated, use <code>account</code></td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>deployHost</code> deprecated, use <code>host</code></td>
+<td><code>neo</code></td>
 <td>no</td>
 <td></td>
 <td></td>
@@ -1105,20 +1113,63 @@
 <td><code>'mta'</code>, <code>'warParams'</code>, <code>'warPropertiesFile'</code></td>
 </tr>
 <tr>
-<td><code>host</code></td>
+<td><code>neoHome</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>neoCredentialsId</code></td>
+<td><code>source</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>warAction</code></td>
+<td>yes</td>
+<td><code>'deploy'</code></td>
+<td><code>'deploy'</code>, <code>'rolling-update'</code></td>
+</tr>
+</tbody>
+</table>
+<p>The parameter <code>neo</code> is a map which contains the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>mandatory</th>
+<th>default</th>
+<th>possible values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>account</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>application</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>credentialsId</code></td>
 <td>no</td>
 <td><code>'CI_CREDENTIALS_ID'</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>neoHome</code></td>
-<td>no</td>
+<td><code>environment</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>yes</td>
 <td></td>
 <td></td>
 </tr>
@@ -1129,58 +1180,51 @@
 <td></td>
 </tr>
 <tr>
-<td><code>runtime-version</code></td>
+<td><code>runtimeVersion</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>script</code></td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>vmSize</code></td>
+<td><code>size</code></td>
 <td>no</td>
 <td><code>'lite'</code></td>
 <td><code>'lite'</code>, <code>'pro'</code>, <code>'prem'</code>, <code>'prem-plus'</code></td>
 </tr>
 <tr>
-<td><code>warAction</code></td>
-<td>yes</td>
-<td><code>'deploy'</code></td>
-<td><code>'deploy'</code>, <code>'rolling-update'</code></td>
+<td><code>vmArguments</code></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>account</code> - The SAP Cloud Platform account to deploy to.</li>
-<li><code>applicationName</code> - Name of the application you want to manage, configure, or deploy</li>
-<li><code>archivePath</code>- The path to the archive for deployment to SAP CP. If not provided <code>mtarFilePath</code> from commom pipeline environment is used instead.</li>
-<li><code>deployAccount</code> - deprecated, use <code>account</code>. The SAP Cloud Platform account to deploy to.</li>
-<li><code>deployHost</code> - deprecated, use <code>host</code>. The SAP Cloud Platform host to deploy to.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for retrieving e.g. configuration parameters.</li>
 <li><code>deployMode</code> - The deployment mode which should be used. Available options are <code>'mta'</code> (default), <code>'warParams'</code> (deploying WAR file and passing all the deployment parameters via the function call) and <code>'warPropertiesFile'</code> (deploying WAR file and putting all the deployment parameters in a .properties file)</li>
-<li><code>host</code> - The SAP Cloud Platform host to deploy to.</li>
-<li><code>neoCredentialsId</code> - The Jenkins credentials containing user and password used for SAP CP deployment.</li>
 <li><code>neoHome</code> - The path to the <code>neo-java-web-sdk</code> tool used for SAP CP deployment. If no parameter is provided, the path is retrieved from the environment variables using the environment variable <code>NEO_HOME</code>. If no parameter and no environment variable is provided, the path is retrieved from the step configuration using the step configuration key <code>neoHome</code>. If the previous configurations are not provided, the tool is expected on the <code>PATH</code>, and if it is not available on the <code>PATH</code> an AbortException is thrown.</li>
+<li><code>source</code>- The path to the archive for deployment to SAP CP. If not provided <code>mtarFilePath</code> from commom pipeline environment is used instead.</li>
+<li><code>warAction</code> - Action mode when using WAR file mode. Available options are <code>deploy</code> (default) and <code>rolling-update</code> which performs update of an application without downtime in one go.</li>
+</ul>
+<p>The parameters for <code>neo</code>:</p>
+<ul>
+<li><code>account</code> - The SAP Cloud Platform account to deploy to.</li>
+<li><code>application</code> - Name of the application you want to manage, configure, or deploy</li>
+<li><code>credentialsId</code> - The Jenkins credentials containing user and password used for SAP CP deployment.</li>
+<li><code>environment</code> - Map of environment variables in the form of KEY: VALUE</li>
+<li><code>host</code> - The SAP Cloud Platform host to deploy to.</li>
 <li><code>propertiesFile</code> - The path to the .properties file in which all necessary deployment properties for the application are defined.</li>
 <li><code>runtime</code> - Name of SAP Cloud Platform application runtime</li>
-<li><code>runtime-version</code> - Version of SAP Cloud Platform application runtime</li>
-<li><code>script</code> - The common script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for retrieving e.g. configuration parameters.</li>
-<li><code>vmSize</code> - Compute unit (VM) size. Acceptable values: lite, pro, prem, prem-plus.</li>
-<li><code>warAction</code> - Action mode when using WAR file mode. Available options are <code>deploy</code> (default) and <code>rolling-update</code> which performs update of an application without downtime in one go.</li>
+<li><code>runtimeVersion</code> - Version of SAP Cloud Platform application runtime</li>
+<li><code>size</code> - Compute unit (VM) size. Acceptable values: lite, pro, prem, prem-plus.</li>
+<li><code>vmArguments</code> - String of VM arguments passed to the JVM</li>
 </ul>
 <p>The step is prepared for being executed in docker. The corresponding parameters can be applied. See step <code>dockerExecute</code> for details.</p>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
+<p>The parameter <code>neo</code> including all  can also be specified as a global parameter using the global configuration file.</p>
 <p>The following parameters can also be specified as step parameters using the global configuration file:</p>
 <ul>
-<li><code>account</code></li>
-<li><code>dockerEnvVars</code></li>
 <li><code>dockerImage</code></li>
-<li><code>dockerOptions</code></li>
-<li><code>host</code></li>
-<li><code>neoCredentialsId</code></li>
 <li><code>neoHome</code></li>
 </ul>
 <h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
@@ -1188,29 +1232,28 @@
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>Exception</code>:</li>
-<li>If <code>archivePath</code> is not provided.</li>
+<li>If <code>source</code> is not provided.</li>
 <li>If <code>propertiesFile</code> is not provided (when using <code>'WAR_PROPERTIESFILE'</code> deployment mode).</li>
-<li>If <code>applicationName</code> is not provided (when using <code>'WAR_PARAMS'</code> deployment mode).</li>
+<li>If <code>application</code> is not provided (when using <code>'WAR_PARAMS'</code> deployment mode).</li>
 <li>If <code>runtime</code> is not provided (when using <code>'WAR_PARAMS'</code> deployment mode).</li>
-<li>If <code>runtime-version</code> is not provided (when using <code>'WAR_PARAMS'</code> deployment mode).</li>
+<li>If <code>runtimeVersion</code> is not provided (when using <code>'WAR_PARAMS'</code> deployment mode).</li>
 <li><code>AbortException</code>:</li>
 <li>If neo-java-web-sdk is not installed, or <code>neoHome</code>is wrong.</li>
-<li>If <code>deployHost</code> is wrong.</li>
-<li>If <code>deployAccount</code> is wrong.</li>
 <li><code>CredentialNotFoundException</code>:</li>
 <li>If the credentials cannot be resolved.</li>
 </ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><span class="n">neoDeploy</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">archivePath:</span> <span class="s1">&#39;path/to/archiveFile.mtar&#39;</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">&#39;my-credentials-id&#39;</span>
+<div class="codehilite"><pre><span></span><span class="n">neoDeploy</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">source:</span> <span class="s1">&#39;path/to/archiveFile.mtar&#39;</span><span class="o">,</span> <span class="nl">neo:</span> <span class="o">[</span><span class="nl">credentialsId:</span> <span class="s1">&#39;my-credentials-id&#39;</span><span class="o">,</span> <span class="nl">host:</span> <span class="n">hana</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">org</span><span class="o">]</span>
 </pre></div>
 
 <p>Example configuration:</p>
 <div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">steps</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">&lt;...&gt;</span>
   <span class="l l-Scalar l-Scalar-Plain">neoDeploy</span><span class="p p-Indicator">:</span>
-
-        <span class="l l-Scalar l-Scalar-Plain">account</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;myDeployAccount&gt;</span>
-        <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">hana.example.org</span>
+    <span class="l l-Scalar l-Scalar-Plain">deployMode</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mta</span>
+    <span class="l l-Scalar l-Scalar-Plain">neo</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">account</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;myDeployAccount&gt;</span>
+      <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">hana.example.org</span>
 </pre></div>
                 
                   
