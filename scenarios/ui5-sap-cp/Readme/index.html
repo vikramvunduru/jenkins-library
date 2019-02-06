@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../../../#create-a-pipeline-for-sap-ui5-or-sap-fiori-on-sap-cloud-platform" tabindex="1" class="md-skip">
+      <a href="../../../#build-and-deploy-sap-ui5-or-sap-fiori-applications-on-sap-cloud-platform-with-jenkins" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -759,6 +759,19 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screenshot-build-and-deploy-process-in-jenkins" title="Screenshot: Build and Deploy Process in Jenkins" class="md-nav__link">
+    Screenshot: Build and Deploy Process in Jenkins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -888,6 +901,19 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screenshot-build-and-deploy-process-in-jenkins" title="Screenshot: Build and Deploy Process in Jenkins" class="md-nav__link">
+    Screenshot: Build and Deploy Process in Jenkins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -963,9 +989,8 @@
                   <a href="https://github.com/SAP/jenkins-library/edit/master/documentation/docs/scenarios/ui5-sap-cp/Readme.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="create-a-pipeline-for-sap-ui5-or-sap-fiori-on-sap-cloud-platform">Create a Pipeline for SAP UI5 or SAP Fiori on SAP Cloud Platform<a class="headerlink" href="#create-a-pipeline-for-sap-ui5-or-sap-fiori-on-sap-cloud-platform" title="Permanent link">&para;</a></h1>
-<p>Create an application based on SAP UI5 or SAP Fiori and deploy the build result into an SAP Cloud Platform account in the Neo environment.</p>
-<p>This document describes a scenario step, which means that it combines various different steps to create a complete pipeline.</p>
+                <h1 id="build-and-deploy-sap-ui5-or-sap-fiori-applications-on-sap-cloud-platform-with-jenkins">Build and Deploy SAP UI5 or SAP Fiori Applications on SAP Cloud Platform with Jenkins<a class="headerlink" href="#build-and-deploy-sap-ui5-or-sap-fiori-applications-on-sap-cloud-platform-with-jenkins" title="Permanent link">&para;</a></h1>
+<p>Build an application based on SAP UI5 or SAP Fiori with Jenkins and deploy the build result into an SAP Cloud Platform account in the Neo environment.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>You have installed the Java Runtime Environment 8.</li>
@@ -976,36 +1001,44 @@
 <li>You have installed the SAP Cloud Platform Neo Environment SDK. See <a href="https://tools.hana.ondemand.com/#cloud">SAP Development Tools</a>.</li>
 </ul>
 <h3 id="project-prerequisites">Project Prerequisites<a class="headerlink" href="#project-prerequisites" title="Permanent link">&para;</a></h3>
-<p>This scenario step requires additional files in your project and the execution environment on your Jenkins instance. On the project level, provide and adjust the following template:</p>
+<p>This scenario requires additional files in your project and in the execution environment on your Jenkins instance.</p>
+<p>On the project level, provide and adjust the following template:</p>
 <table>
 <thead>
 <tr>
 <th>File Name</th>
 <th>Description</th>
+<th>Position</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/marcusholl/jenkins-library/tree/pr/scenarioUI5SAPCP/documentation/docs/scenarios/ui5-sap-cp/files/.npmrc"><code>.npmrc</code></a></td>
-<td>This file contains a reference to the SAP NPM registry (<code>@sap:registry https://npm.sap.com</code>), which is required to fetch dependencies to build the application. Place it in the root directory of your project.</td>
+<td><a href="https://github.com/SAP/jenkins-library/blob/master/documentation/docs/scenarios/ui5-sap-cp/files/.npmrc"><code>.npmrc</code></a></td>
+<td>This file contains a reference to the SAP NPM registry (<code>@sap:registry https://npm.sap.com</code>), which is required to fetch the dependencies required to build the application.</td>
+<td>Place the <code>.npmrc</code> file in the root directory of your project.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/marcusholl/jenkins-library/tree/pr/scenarioUI5SAPCP/documentation/docs/scenarios/ui5-sap-cp/files/mta.yaml"><code>mta.yaml</code></a></td>
-<td>This file controls the behavior of the MTA toolset. Place it in your application root folder and adjust the values in brackets with your data.</td>
+<td><a href="https://github.com/SAP/jenkins-library/blob/master/documentation/docs/scenarios/ui5-sap-cp/files/mta.yaml"><code>mta.yaml</code></a></td>
+<td>This file controls the behavior of the MTA toolset.</td>
+<td>Place the <code>mta.yaml</code> file in your application root folder and adjust the values in brackets with your data.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/marcusholl/jenkins-library/tree/pr/scenarioUI5SAPCP/documentation/docs/scenarios/ui5-sap-cp/files/package.json"><code>package.json</code></a></td>
-<td>This file lists the required development dependencies for the build. Add the content to your existing <code>package.json</code> file.</td>
+<td><a href="https://github.com/SAP/jenkins-library/blob/master/documentation/docs/scenarios/ui5-sap-cp/files/package.json"><code>package.json</code></a></td>
+<td>This file lists the required development dependencies for the build.</td>
+<td>Add the content of the <code>package.json</code> file to your existing <code>package.json</code> file.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/marcusholl/jenkins-library/tree/pr/scenarioUI5SAPCP/documentation/docs/scenarios/ui5-sap-cp/files/Gruntfile.js"><code>Gruntfile.js</code></a></td>
-<td>This file controls the grunt build. By default the tasks <code>clean</code>, <code>build</code>, and <code>lint</code> are executed. Place it in the root directory of your project.</td>
+<td><a href="https://github.com/SAP/jenkins-library/blob/master/documentation/docs/scenarios/ui5-sap-cp/files/Gruntfile.js"><code>Gruntfile.js</code></a></td>
+<td>This file controls the grunt build. By default the tasks <code>clean</code>, <code>build</code>, and <code>lint</code> are executed.</td>
+<td>Place the <code>Gruntfile.js</code> in the root directory of your project.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>In this scenario step, we want to show how to build an application based on SAP UI5 or SAP Fiori by using the multi-target application (MTA) concept and how to deploy the build result into an SAP Cloud Platform account in the Neo environment. This document comprises the <a href="https://sap.github.io/jenkins-library/steps/mtaBuild/">mtaBuild</a> and the <a href="https://sap.github.io/jenkins-library/steps/neoDeploy/">neoDeploy</a> steps.</p>
+<p>This scenario combines various different steps to create a complete pipeline.</p>
+<p>In this scenario, we want to show how to build an application based on SAP UI5 or SAP Fiori by using the multi-target application (MTA) concept and how to deploy the build result into an SAP Cloud Platform account in the Neo environment. This document comprises the <a href="https://sap.github.io/jenkins-library/steps/mtaBuild/">mtaBuild</a> and the <a href="https://sap.github.io/jenkins-library/steps/neoDeploy/">neoDeploy</a> steps.</p>
 <p><img alt="This pipeline in Jenkins Blue Ocean" src="../images/pipeline.jpg" /></p>
+<h6 id="screenshot-build-and-deploy-process-in-jenkins">Screenshot: Build and Deploy Process in Jenkins<a class="headerlink" href="#screenshot-build-and-deploy-process-in-jenkins" title="Permanent link">&para;</a></h6>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <h3 id="jenkinsfile">Jenkinsfile<a class="headerlink" href="#jenkinsfile" title="Permanent link">&para;</a></h3>
 <p>Following the convention for pipeline definitions, use a <code>Jenkinsfile</code> which resides in the root directory of your development sources.</p>
