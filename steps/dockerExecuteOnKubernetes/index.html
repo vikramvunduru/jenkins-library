@@ -941,7 +941,8 @@
                 
                 <h1 id="dockerexecuteonkubernetes">dockerExecuteOnKubernetes<a class="headerlink" href="#dockerexecuteonkubernetes" title="Permanent link">&para;</a></h1>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>Executes a closure inside a container in a kubernetes pod. Proxy environment variables defined on the Jenkins machine are also available in the container.</p>
+<p>Executes a closure inside a container in a kubernetes pod.
+Proxy environment variables defined on the Jenkins machine are also available in the container.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The Jenkins should be running on kubernetes.</li>
@@ -952,7 +953,7 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -960,129 +961,138 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>containerCommand</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerCommands</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerEnvVars</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerMap</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerName</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerPortMappings</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerPullImageFlags</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerShell</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>containerWorkspaces</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>dockerEnvVars</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>dockerImage</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>containerCommand</td>
+<td><code>dockerPullImage</code></td>
+<td>no</td>
+<td><code>true</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>dockerWorkspace</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>containerCommands</td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>containerEnvVars</td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>containerPullImageFlags</td>
-<td>no</td>
-<td>true</td>
-<td>boolean value: <code>true</code>, <code>false</code></td>
-</tr>
-<tr>
-<td>containerMap</td>
-<td>no</td>
-<td><code>[:]</code></td>
-<td></td>
-</tr>
-<tr>
-<td>containerName</td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>containerPortMappings</td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>containerShell</td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>containerWorkspaces</td>
-<td>no</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>dockerEnvVars</td>
-<td>no</td>
-<td><code>[:]</code></td>
-<td></td>
-</tr>
-<tr>
-<td>dockerImage</td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>dockerPullImage</td>
-<td>no</td>
-<td>true</td>
-<td>boolean value: <code>true</code>, <code>false</code></td>
-</tr>
-<tr>
-<td>dockerWorkspace</td>
-<td>no</td>
-<td><code>''</code></td>
-<td></td>
-</tr>
-<tr>
-<td>jenkinsKubernetes</td>
+<td><code>jenkinsKubernetes</code></td>
 <td>no</td>
 <td><code>[jnlpAgent:s4sdk/jenkins-agent-k8s:latest]</code></td>
 <td></td>
 </tr>
 <tr>
-<td>stashExcludes</td>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stashContent</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stashExcludes</code></td>
 <td>no</td>
 <td><code>[workspace:nohup.out]</code></td>
 <td></td>
 </tr>
 <tr>
-<td>stashIncludes</td>
+<td><code>stashIncludes</code></td>
 <td>no</td>
-<td><code>[workspace:**/*.*]</code></td>
+<td><code>[workspace:**/*]</code></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkins file run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li><code>containerCommand</code>: allows to specify start command for container created with dockerImage parameter to overwrite Piper default (<code>/usr/bin/tail -f /dev/null</code>).</li>
-<li><code>containerCommands</code> specifies start command for containers to overwrite Piper default (<code>/usr/bin/tail -f /dev/null</code>). If container's defaultstart command should be used provide empty string like: <code>['selenium/standalone-chrome': '']</code>.</li>
-<li><code>containerEnvVars</code> specifies environment variables per container. If not provided <code>dockerEnvVars</code> will be used.</li>
-<li><code>containerPullImageFlags</code> specifies the pullImage flag per container.</li>
-<li><code>containerMap</code> A map of docker image to the name of the container. The pod will be created with all the images from this map and they are labled based on the value field of each map entry.
-   Example: <code>['maven:3.5-jdk-8-alpine': 'mavenExecute', 'selenium/standalone-chrome': 'selenium', 'famiko/jmeter-base': 'checkJMeter', 's4sdk/docker-cf-cli': 'cloudfoundry']</code></li>
-<li><code>containerName</code>: optional configuration in combination with containerMap to define the container where the commands should be executed in</li>
-<li><code>containerPortMappings</code>: Map which defines per docker image the port mappings, like <code>containerPortMappings: ['selenium/standalone-chrome': [[name: 'selPort', containerPort: 4444, hostPort: 4444]]]</code></li>
-<li><code>containerShell</code> allows to specify the shell to be executed for container with containerName</li>
-<li><code>containerWorkspaces</code> specifies workspace (=home directory of user) per container. If not provided <code>dockerWorkspace</code> will be used. If empty, home directory will not be set.</li>
-<li><code>dockerImage</code> Name of the docker image that should be used. If empty, Docker is not used.</li>
-<li><code>dockerEnvVars</code> Environment variables to set in the container, e.g. [http_proxy:'proxy:8080']</li>
-<li><code>dockerPullImage</code>: Set this to 'false' to bypass a docker image pull. Usefull during development process. Allows testing of images which are available in the local registry only.</li>
-<li><code>dockerWorkspace</code> Docker options to be set when starting the container. It can be a list or a string.</li>
+<li><code>containerCommand</code> - Allows to specify start command for container created with dockerImage parameter to overwrite Piper default (<code>/usr/bin/tail -f /dev/null</code>).</li>
+<li><code>containerCommands</code> - Specifies start command for containers to overwrite Piper default (<code>/usr/bin/tail -f /dev/null</code>). If container's defaultstart command should be used provide empty string like: <code>['selenium/standalone-chrome': '']</code>.</li>
+<li><code>containerEnvVars</code> - Specifies environment variables per container. If not provided <code>dockerEnvVars</code> will be used.</li>
+<li><code>containerMap</code> - A map of docker image to the name of the container. The pod will be created with all the images from this map and they are labled based on the value field of each map entry. Example: <code>['maven:3.5-jdk-8-alpine': 'mavenExecute', 'selenium/standalone-chrome': 'selenium', 'famiko/jmeter-base': 'checkJMeter', 's4sdk/docker-cf-cli': 'cloudfoundry']</code></li>
+<li><code>containerName</code> - Optional configuration in combination with containerMap to define the container where the commands should be executed in.</li>
+<li><code>containerPortMappings</code> - Map which defines per docker image the port mappings, e.g. <code>containerPortMappings: ['selenium/standalone-chrome': [[name: 'selPort', containerPort: 4444, hostPort: 4444]]]</code>.</li>
+<li><code>containerPullImageFlags</code> - Specifies the pullImage flag per container.</li>
+<li><code>containerShell</code> - Allows to specify the shell to be executed for container with containerName.</li>
+<li><code>containerWorkspaces</code> - Specifies a dedicated user home directory per container which will be passed as value for environment variable <code>HOME</code>. If not provided <code>dockerWorkspace</code> will be used.</li>
+<li><code>dockerEnvVars</code> - Environment variables to set in the container, e.g. [http_proxy:'proxy:8080'].</li>
+<li><code>dockerImage</code> - Name of the docker image that should be used. If empty, Docker is not used.</li>
+<li><code>dockerPullImage</code> - Set this to 'false' to bypass a docker image pull. Usefull during development process. Allows testing of images which are available in the local registry only.</li>
+<li><code>dockerWorkspace</code> - Specifies a dedicated user home directory for the container which will be passed as value for environment variable <code>HOME</code>.</li>
+<li><code>jenkinsKubernetes</code> - </li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>stashContent</code> - Specific stashes that should be considered for the step execution.</li>
+<li><code>stashExcludes</code> - </li>
+<li><code>stashIncludes</code> -</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
 <table>
 <thead>
 <tr>
@@ -1094,94 +1104,112 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>containerCommands</td>
+<td><code>containerCommand</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>containerEnvVars</td>
+<td><code>containerCommands</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>containerPullImageFlags</td>
+<td><code>containerEnvVars</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>containerMap</td>
+<td><code>containerMap</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>containerName</td>
+<td><code>containerName</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>containerPortMappings</td>
+<td><code>containerPortMappings</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>containerWorkspaces</td>
+<td><code>containerPullImageFlags</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>dockerEnvVars</td>
+<td><code>containerShell</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>dockerImage</td>
+<td><code>containerWorkspaces</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>dockerPullImage</td>
+<td><code>dockerEnvVars</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>dockerWorkspace</td>
+<td><code>dockerImage</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>jenkinsKubernetes</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>stashExcludes</td>
+<td><code>dockerPullImage</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>stashIncludes</td>
+<td><code>dockerWorkspace</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
+</tr>
+<tr>
+<td><code>jenkinsKubernetes</code></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stashContent</code></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>stashExcludes</code></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td><code>stashIncludes</code></td>
+<td></td>
+<td>X</td>
+<td></td>
 </tr>
 </tbody>
 </table>
