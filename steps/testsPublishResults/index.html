@@ -1033,6 +1033,12 @@
 <td></td>
 </tr>
 <tr>
+<td><code>failOnError</code></td>
+<td>no</td>
+<td><code>false</code></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
 <td>junit</td>
 <td>no</td>
 <td><code>false</code></td>
@@ -1064,6 +1070,7 @@
     with the <code>this</code> parameter, as in <code>script: this</code>.
     This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a>
     for retrieving, for example, configuration parameters.</li>
+<li><code>failOnError</code> - If <code>failOnError</code> it set to <code>true</code> the step will fail the build if JUnit detected any failing tests.</li>
 <li><code>junit</code> - Publishes test results files in JUnit format with the <a href="https://plugins.jenkins.io/junit">JUnit Plugin</a>.</li>
 <li><code>jacoco</code> - Publishes code coverage with the <a href="https://plugins.jenkins.io/jacoco">JaCoCo plugin</a> .</li>
 <li><code>cobertura</code> - Publishes code coverage with the <a href="https://plugins.jenkins.io/cobertura">Cobertura plugin</a>.</li>
