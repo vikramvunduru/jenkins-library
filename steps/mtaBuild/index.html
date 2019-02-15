@@ -538,13 +538,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
@@ -875,13 +868,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
@@ -940,13 +926,6 @@
 <p>Executes the SAP Multitarget Application Archive Builder to create an mtar archive of the application.</p>
 <p>Before doing this, validates that SAP Multitarget Application Archive Builder exists and the version is compatible.</p>
 <p>Note that a version is formed by <code>major.minor.patch</code>, and a version is compatible to another version if the minor and patch versions are higher, but the major version is not, e.g. if 3.39.10 is the expected version, 3.39.11 and 3.40.1 would be compatible versions, but 4.0.1 would not be a compatible version.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<ul>
-<li>A docker image meeting the following requirements</li>
-<li><strong>SAP MTA Archive Builder 1.0.6 or compatible version</strong> - can be downloaded from <a href="https://tools.hana.ondemand.com/#cloud">SAP Development Tools</a>.</li>
-<li><strong>Java 8 or compatible version</strong> - necessary to run the <code>mta.jar</code> file.</li>
-<li><strong>NodeJS installed</strong> - the MTA Builder uses <code>npm</code> to download node module dependencies such as <code>grunt</code>.</li>
-</ul>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -966,8 +945,8 @@
 </tr>
 <tr>
 <td><code>dockerImage</code></td>
-<td>yes</td>
-<td></td>
+<td>no</td>
+<td><code>ppiper/mta-archive-builder</code></td>
 <td></td>
 </tr>
 <tr>
@@ -991,7 +970,7 @@
 <tr>
 <td><code>mtaJarLocation</code></td>
 <td>no</td>
-<td><code>'mta.jar'</code></td>
+<td><code>'/opt/sap/mta/lib/mta.jar'</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1005,8 +984,7 @@
 <ul>
 <li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the <code>this</code> parameter, as in <code>script: this</code>. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for retrieving, for example, configuration parameters.</li>
 <li><code>dockerImage</code> - The Docker image to execute the MTA build.
-  A custom built image needs to include Multi-target Application Archive Builder.
-  Refer to <a href="https://help.sap.com/viewer/58746c584026430a890170ac4d87d03b/Cloud/en-US/ba7dd5a47b7a4858a652d15f9673c28d.html">SAP Help Portal</a> for information on how to set it up.</li>
+  Note that you can provide your own image if required, but for most cases, the default should be fine.</li>
 <li><code>dockerOptions</code> Docker options to be set when starting the container. It can be a list or a string.</li>
 <li><code>buildTarget</code> - The target platform to which the mtar can be deployed.</li>
 <li><code>extension</code> - The path to the extension descriptor file.</li>
