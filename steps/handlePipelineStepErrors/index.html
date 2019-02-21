@@ -977,22 +977,22 @@
 <li>
 <p><code>echoDetails</code> - If set to true the following will be output to the console:</p>
 <ol>
-<li>Step beginning: <code>--- BEGIN LIBRARY STEP: ${stepName}.groovy ---</code></li>
-<li>Step end: <code>--- END LIBRARY STEP: ${stepName}.groovy ---</code></li>
+<li>Step beginning: <code>--- Begin library step: ${stepName}.groovy ---</code></li>
+<li>Step end: <code>--- End library step: ${stepName}.groovy ---</code></li>
 <li>Step errors:</li>
 </ol>
 <div class="codehilite"><pre><span></span>----------------------------------------------------------
---- ERROR OCCURED IN LIBRARY STEP: ${stepName}
+--- An error occurred in the library step: ${stepName}
 ----------------------------------------------------------
-FOLLOWING PARAMETERS WERE AVAILABLE TO THIS STEP:
+The following parameters were available to the step:
 ***
 ${stepParameters}
 ***
-ERROR WAS:
+The error was:
 ***
 ${err}
 ***
-FURTHER INFORMATION:
+Further information:
 * Documentation of step ${stepName}: .../${stepName}/
 * Pipeline documentation: https://...
 * GitHub repository for pipeline steps: https://...
