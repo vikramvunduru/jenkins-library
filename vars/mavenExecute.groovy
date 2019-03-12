@@ -37,6 +37,10 @@ void call(Map parameters = [:]) {
             .mixin(parameters, PARAMETER_KEYS)
             .use()
 
+        println("DEBUG MavenExec")
+        println(parameters.stageName)
+        println(configuration)
+
         new Utils().pushToSWA([
             step: STEP_NAME,
             stepParamKey1: 'scriptMissing',
