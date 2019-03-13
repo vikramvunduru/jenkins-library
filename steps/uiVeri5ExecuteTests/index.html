@@ -1061,6 +1061,12 @@
 <td></td>
 <td></td>
 </tr>
+<tr>
+<td><code>testServerUrl</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -1080,6 +1086,7 @@
 <li><code>stashContent</code> - If specific stashes should be considered for the tests, their names need to be passed via the parameter <code>stashContent</code>.</li>
 <li><code>testOptions</code> - This allows to set specific options for the UIVeri5 execution. Details can be found <a href="https://github.com/SAP/ui5-uiveri5/blob/master/docs/config/config.md#configuration">in the UIVeri5 documentation</a>.</li>
 <li><code>testRepository</code> - With <code>testRepository</code> the tests can be loaded from another reposirory.</li>
+<li><code>testServerUrl</code> - The <code>testServerUrl</code> is passed as environment variable <code>TARGET_SERVER_URL</code> to the test execution. The tests should read the host information from this environment variable in order to be infrastructure agnostic.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
@@ -1186,6 +1193,12 @@
 </tr>
 <tr>
 <td><code>testRepository</code></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>testServerUrl</code></td>
 <td></td>
 <td>X</td>
 <td>X</td>
