@@ -1106,6 +1106,12 @@ Proxy environment variables defined on the Jenkins machine are also available in
 <td></td>
 </tr>
 <tr>
+<td><code>sidecarReadyCommand</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td><code>sidecarVolumeBind</code></td>
 <td>no</td>
 <td></td>
@@ -1143,6 +1149,7 @@ Proxy environment variables defined on the Jenkins machine are also available in
 <li><code>sidecarName</code> - as <code>dockerName</code> for the sidecar container</li>
 <li><code>sidecarOptions</code> - as <code>dockerOptions</code> for the sidecar container</li>
 <li><code>sidecarPullImage</code> - Set this to 'false' to bypass a docker image pull. Usefull during development process. Allows testing of images which are available in the local registry only.</li>
+<li><code>sidecarReadyCommand</code> - Command executed inside the container which returns exit code 0 when the container is ready to be used.</li>
 <li><code>sidecarVolumeBind</code> - as <code>dockerVolumeBind</code> for the sidecar container</li>
 <li><code>sidecarWorkspace</code> - as <code>dockerWorkspace</code> for the sidecar container</li>
 <li><code>stashContent</code> - Specific stashes that should be considered for the step execution.</li>
@@ -1243,6 +1250,11 @@ Proxy environment variables defined on the Jenkins machine are also available in
 </tr>
 <tr>
 <td><code>sidecarPullImage</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>sidecarReadyCommand</code></td>
 <td></td>
 <td>X</td>
 </tr>
