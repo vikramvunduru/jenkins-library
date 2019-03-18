@@ -989,10 +989,10 @@
 <p><img alt="Jenkins credentials configuration" src="../../images/neo_credentials.png" /></p>
 <ul>
 <li>
-<p><strong>Neo Java Web SDK 3.39.10 or compatible version</strong> - can be downloaded from <a href="http://central.maven.org/maven2/com/sap/cloud/neo-java-web-sdk/">Maven Central</a>. The Neo Java Web SDK needs to be extracted into the folder provided by <code>neoHome</code>. In case this parameters is not provided and there is no NEO_HOME parameter in the environment <code>&lt;neoRoot&gt;/tools</code> needs to be in the <code>PATH</code>. This step is also capable of triggering the neo deploy tool provided inside a docker image.</p>
+<p><strong>Neo Java Web SDK 3.39.10 or compatible version</strong> - can be downloaded from <a href="http://central.maven.org/maven2/com/sap/cloud/neo-java-web-sdk/">Maven Central</a>. This step is capable of triggering the neo deploy tool provided inside a docker image. We provide docker image <code>ppiper/neo-cli</code>. <code>neo.sh</code> needs to be contained in path, e.g by adding a symbolic link to <code>/usr/local/bin</code>.</p>
 </li>
 <li>
-<p><strong>Java 8 or compatible version</strong> - needed by the <em>Neo-Java-Web-SDK</em></p>
+<p><strong>Java 8 or compatible version</strong> - needed by the <em>Neo-Java-Web-SDK</em>. Java environment needs to be properly configured (JAVA_HOME, java exectutable contained in path).</p>
 </li>
 </ul>
 <h2 id="parameters-when-using-mta-deployment-method-default-mta">Parameters when using MTA deployment method (default - MTA)<a class="headerlink" href="#parameters-when-using-mta-deployment-method-default-mta" title="Permanent link">&para;</a></h2>
