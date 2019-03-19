@@ -1106,7 +1106,7 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -1114,97 +1114,97 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>buildTool</td>
+<td><code>buildTool</code></td>
 <td>no</td>
 <td><code>npm</code></td>
-<td><code>maven</code>, <code>npm</code></td>
+<td><code>'maven'</code>, <code>'npm'</code></td>
 </tr>
 <tr>
-<td>containerPortMappings</td>
+<td><code>containerPortMappings</code></td>
 <td>no</td>
 <td><code>[selenium/standalone-chrome:[[containerPort:4444, hostPort:4444]]]</code></td>
 <td></td>
 </tr>
 <tr>
-<td>dockerEnvVars</td>
+<td><code>dockerEnvVars</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>dockerImage</td>
+<td><code>dockerImage</code></td>
 <td>no</td>
-<td>buildTool=<code>maven</code>: <code>maven:3.5-jdk-8</code><br />buildTool=<code>npm</code>: <code>node:8-stretch</code><br /></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>dockerName</td>
+<td><code>dockerName</code></td>
 <td>no</td>
-<td>buildTool=<code>maven</code>: <code>maven</code><br />buildTool=<code>npm</code>: <code>npm</code><br /></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>dockerWorkspace</td>
+<td><code>dockerWorkspace</code></td>
 <td>no</td>
-<td>buildTool=<code>maven</code>: <br />buildTool=<code>npm</code>: <code>/home/node</code><br /></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>failOnError</td>
+<td><code>failOnError</code></td>
 <td>no</td>
 <td><code>true</code></td>
-<td></td>
+<td><code>true</code>, <code>false</code></td>
 </tr>
 <tr>
-<td>gitBranch</td>
+<td><code>gitBranch</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>gitSshKeyCredentialsId</td>
+<td><code>gitSshKeyCredentialsId</code></td>
 <td>no</td>
-<td>``</td>
+<td></td>
+<td>Jenkins credentials id</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>sidecarEnvVars</td>
+<td><code>sidecarEnvVars</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>sidecarImage</td>
+<td><code>sidecarImage</code></td>
 <td>no</td>
 <td><code>selenium/standalone-chrome</code></td>
 <td></td>
 </tr>
 <tr>
-<td>sidecarName</td>
+<td><code>sidecarName</code></td>
 <td>no</td>
 <td><code>selenium</code></td>
 <td></td>
 </tr>
 <tr>
-<td>sidecarVolumeBind</td>
+<td><code>sidecarVolumeBind</code></td>
 <td>no</td>
 <td><code>[/dev/shm:/dev/shm]</code></td>
 <td></td>
 </tr>
 <tr>
-<td>stashContent</td>
+<td><code>stashContent</code></td>
 <td>no</td>
-<td><ul><li><code>tests</code></li></ul></td>
+<td><code>[tests]</code></td>
 <td></td>
 </tr>
 <tr>
-<td>testRepository</td>
+<td><code>testRepository</code></td>
 <td>no</td>
 <td></td>
 <td></td>
@@ -1212,127 +1212,112 @@
 </tbody>
 </table>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li><code>buildTool</code> defines the build tool to be used for the test execution.</li>
-<li><code>containerPortMappings</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>dockerEnvVars</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>dockerImage</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>dockerName</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>dockerWorkspace</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>failOnError</code> specifies if the step should fail in case the execution of the body of this step fails.</li>
-<li><code>sidecarEnvVars</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>sidecarImage</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>sidecarName</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li><code>sidecarVolumeBind</code>, see step <a href="../dockerExecute/">dockerExecute</a></li>
-<li>If specific stashes should be considered for the tests, you can pass this via parameter <code>stashContent</code></li>
-<li>In case the test implementation is stored in a different repository than the code itself, you can define the repository containing the tests using parameter <code>testRepository</code> and if required <code>gitBranch</code> (for a different branch than master) and <code>gitSshKeyCredentialsId</code> (for protected repositories). For protected repositories the testRepository needs to contain the ssh git url.</li>
+<li><code>buildTool</code> - Defines the tool which is used for executing the tests</li>
+<li><code>containerPortMappings</code> - Map which defines per docker image the port mappings, e.g. <code>containerPortMappings: ['selenium/standalone-chrome': [[name: 'selPort', containerPort: 4444, hostPort: 4444]]]</code>.</li>
+<li><code>dockerEnvVars</code> - Environment variables to set in the container, e.g. [http_proxy: 'proxy:8080'].</li>
+<li><code>dockerImage</code> - Name of the docker image that should be used. If empty, Docker is not used and the command is executed directly on the Jenkins system.</li>
+<li><code>dockerName</code> - Kubernetes only: Name of the container launching <code>dockerImage</code>. SideCar only: Name of the container in local network.</li>
+<li><code>dockerWorkspace</code> - Kubernetes only: Specifies a dedicated user home directory for the container which will be passed as value for environment variable <code>HOME</code>.</li>
+<li><code>failOnError</code> - With <code>failOnError</code> the behavior in case tests fail can be defined.</li>
+<li><code>gitBranch</code> - Only if <code>testRepository</code> is provided: Branch of testRepository, defaults to master.</li>
+<li><code>gitSshKeyCredentialsId</code> - Only if <code>testRepository</code> is provided: Credentials for a protected testRepository</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>sidecarEnvVars</code> - as <code>dockerEnvVars</code> for the sidecar container</li>
+<li><code>sidecarImage</code> - as <code>dockerImage</code> for the sidecar container</li>
+<li><code>sidecarName</code> - as <code>dockerName</code> for the sidecar container</li>
+<li><code>sidecarVolumeBind</code> - as <code>dockerVolumeBind</code> for the sidecar container</li>
+<li><code>stashContent</code> - Specific stashes that should be considered for the step execution.</li>
+<li><code>testRepository</code> - Define an additional repository where the test implementation is located. For protected repositories the <code>testRepository</code> needs to contain the ssh git url.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
 <table>
 <thead>
 <tr>
 <th>parameter</th>
 <th>general</th>
-<th>step</th>
-<th>stage</th>
+<th>step/stage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>buildTool</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>containerPortMappings</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerEnvVars</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerImage</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerName</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerWorkspace</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>failOnError</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitBranch</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitSshKeyCredentialsId</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
 <td></td>
 <td></td>
-<td></td>
 </tr>
 <tr>
-<td>buildTool</td>
-<td></td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>containerPortMappings</td>
-<td>X</td>
+<td><code>sidecarEnvVars</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>dockerEnvVars</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>dockerImage</td>
-<td>X</td>
+<td><code>sidecarImage</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>dockerName</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>dockerWorkspace</td>
-<td>X</td>
+<td><code>sidecarName</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>failOnError</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>gitBranch</td>
-<td>X</td>
+<td><code>sidecarVolumeBind</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>gitSshKeyCredentialsId</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>sidecarEnvVars</td>
-<td>X</td>
+<td><code>stashContent</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>sidecarImage</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>sidecarName</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>sidecarVolumeBind</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>stashContent</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>testRepository</td>
-<td>X</td>
+<td><code>testRepository</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
