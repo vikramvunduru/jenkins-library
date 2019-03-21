@@ -46,7 +46,7 @@ void call(parameters = [:]) {
 
         Map configuration = configHelper.use()
 
-        System.err<<"[MARCUS] Config: ${configuration}\n"
+        script.echo "[MARCUS] 1  Config: ${configuration}\n"
 
         DeployMode deployMode = DeployMode.fromString(configuration.deployMode)
 
@@ -65,6 +65,8 @@ void call(parameters = [:]) {
             // call 'use()' a second time in order to get the collected validation failures
             // since the map did not change, it is not required to replace the previous configuration map.
             .use()
+
+        script.echo "[MARCUS] 2  Config: ${configuration}\n"
 
         utils.pushToSWA([
             step: STEP_NAME,
