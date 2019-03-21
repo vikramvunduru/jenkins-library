@@ -46,6 +46,8 @@ void call(parameters = [:]) {
 
         Map configuration = configHelper.use()
 
+        System.err<<"[MARCUS] Config: ${configuration}\n"
+
         DeployMode deployMode = DeployMode.fromString(configuration.deployMode)
 
         def isWarParamsDeployMode = { deployMode == DeployMode.WAR_PARAMS },
