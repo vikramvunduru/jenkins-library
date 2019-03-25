@@ -532,19 +532,6 @@
     Parameters
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#details" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -930,19 +917,6 @@
     Parameters
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#details" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -987,7 +961,7 @@
                 
                 <h1 id="mailsendnotification">mailSendNotification<a class="headerlink" href="#mailsendnotification" title="Permanent link">&para;</a></h1>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>Sends notifications to all potential culprits of a current or previous build failure plus to fixed list of recipients.
+<p>Sends notifications to all potential culprits of a current or previous build failure and to fixed list of recipients.
 It will attach the current build log to the email.</p>
 <p>Notifications are sent in following cases:</p>
 <ul>
@@ -1005,7 +979,7 @@ It will attach the current build log to the email.</p>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -1013,171 +987,151 @@ It will attach the current build log to the email.</p>
 </thead>
 <tbody>
 <tr>
-<td>script</td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>buildResult</td>
+<td><code>buildResult</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>gitCommitId</td>
-<td>no</td>
-<td><code>script.commonPipelineEnvironment.getGitCommitId()</code></td>
-<td></td>
-</tr>
-<tr>
-<td>gitSshKeyCredentialsId</td>
-<td>no</td>
-<td>``</td>
-<td></td>
-</tr>
-<tr>
-<td>gitUrl</td>
+<td><code>gitCommitId</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>notificationAttachment</td>
+<td><code>gitSshKeyCredentialsId</code></td>
+<td>no</td>
+<td></td>
+<td>Jenkins credentials id</td>
+</tr>
+<tr>
+<td><code>gitUrl</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>notificationAttachment</code></td>
 <td>no</td>
 <td><code>true</code></td>
-<td></td>
+<td><code>true</code>, <code>false</code></td>
 </tr>
 <tr>
-<td>notificationRecipients</td>
+<td><code>notificationRecipients</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>notifyCulprits</td>
+<td><code>notifyCulprits</code></td>
 <td>no</td>
 <td><code>true</code></td>
-<td></td>
+<td><code>true</code>, <code>false</code></td>
 </tr>
 <tr>
-<td>numLogLinesInBody</td>
+<td><code>numLogLinesInBody</code></td>
 <td>no</td>
 <td><code>100</code></td>
 <td></td>
 </tr>
 <tr>
-<td>projectName</td>
+<td><code>projectName</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>wrapInNode</td>
-<td>no</td>
-<td><code>false</code></td>
+<td><code>script</code></td>
+<td>yes</td>
 <td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>wrapInNode</code></td>
+<td>no</td>
+<td></td>
+<td><code>true</code>, <code>false</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li><code>buildResult</code> may be used to overrule the build result coming from <code>currentBuild.result</code>. This is for example used in the step <code>pipelineRestartSteps</code></li>
-<li><code>gitCommitId</code> defines a dedicated git commitId for culprit retrieval.</li>
-<li><code>gitUrl</code> and <code>gitCommitId</code> are used to retrieve culprit information.</li>
-<li><code>gitSshKeyCredentialsId</code> only required if your git repository is protected. It defines the credentialsId for the git ssh credentials.</li>
-<li><code>notificationAttachment</code> defines if the console log file should be attached to the notification mail.</li>
-<li><code>notificationRecipients</code> defines the fixed list of recipient that always get the notification. In case you want to send the notification to the culprits only set it to an empty string <code>''</code>.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Multiple recipients need to be separated with the <code>space</code> character.
-In case you do not want to have any fixed recipients of the notifications leave the property empty.</p>
-</div>
-<ul>
-<li><code>notifyCulprits</code> defines if potential culprits should receive an email.</li>
-<li><code>numLogLinesInBody</code> defines the number of log lines (=last lines of the log) which are included into the body of the notification email.</li>
-<li><code>projectName</code> may be used to specify a different name in the email subject.</li>
-<li><code>wrapInNode</code> needs to be set to <code>true</code> if step is used outside of a node context, e.g. post actions in a declarative pipeline script.</li>
+<li><code>buildResult</code> - Set the build result used to determine the mail template. default <code>currentBuild.result</code></li>
+<li><code>gitCommitId</code> - Only if <code>notifyCulprits</code> is set: Defines a dedicated git commitId for culprit retrieval. default <code>commonPipelineEnvironment.getGitCommitId()</code></li>
+<li><code>gitSshKeyCredentialsId</code> - Only if <code>notifyCulprits</code> is set: Credentials if the repository is protected.</li>
+<li><code>gitUrl</code> - Only if <code>notifyCulprits</code> is set: Repository url used to retrieve culprit information. default <code>commonPipelineEnvironment.getGitSshUrl()</code></li>
+<li><code>notificationAttachment</code> - defines if the console log file should be attached to the notification mail.</li>
+<li><code>notificationRecipients</code> - A space-separated list of recipients that always get the notification.</li>
+<li><code>notifyCulprits</code> - Notify all committers since the last successful build.</li>
+<li><code>numLogLinesInBody</code> - Number of log line which are included in the email body.</li>
+<li><code>projectName</code> - The project name used in the email subject. default <code>currentBuild.fullProjectName</code></li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>wrapInNode</code> - Needs to be set to <code>true</code> if step is used outside of a node context, e.g. post actions in a declarative pipeline script. default <code>false</code></li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
 <table>
 <thead>
 <tr>
 <th>parameter</th>
 <th>general</th>
-<th>step</th>
-<th>stage</th>
+<th>step/stage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>buildResult</code></td>
 <td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>buildResult</td>
-<td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>gitCommitId</td>
+<td><code>gitCommitId</code></td>
 <td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitSshKeyCredentialsId</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>gitSshKeyCredentialsId</td>
-<td>X</td>
-<td>X</td>
+<td><code>gitUrl</code></td>
+<td></td>
 <td>X</td>
 </tr>
 <tr>
-<td>gitUrl</td>
+<td><code>notificationAttachment</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>notificationAttachment</td>
+<td><code>notificationRecipients</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>notificationRecipients</td>
+<td><code>notifyCulprits</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>notifyCulprits</td>
+<td><code>numLogLinesInBody</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>numLogLinesInBody</td>
+<td><code>projectName</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>projectName</td>
+<td><code>script</code></td>
 <td></td>
-<td>X</td>
-<td>X</td>
+<td></td>
 </tr>
 <tr>
-<td>wrapInNode</td>
+<td><code>wrapInNode</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 </tbody>
