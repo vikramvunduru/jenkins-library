@@ -13,7 +13,7 @@ import static com.sap.piper.Prerequisites.checkScript
 @Field String STEP_NAME = getClass().getName()
 
 @Field Set GENERAL_CONFIG_KEYS = [
-     /** Defines the targets to deploy on cloudFoundry.*/
+    /** Defines the targets to deploy on cloudFoundry.*/
     'cfTargets',
     /** Defines the targets to deploy on neo.*/
     'neoTargets'
@@ -22,10 +22,10 @@ import static com.sap.piper.Prerequisites.checkScript
 @Field Set STEP_CONFIG_KEYS = []
 
 @Field Set PARAMETER_KEYS = GENERAL_CONFIG_KEYS.plus([
-     /** The stage name. If the stage name is not provided, it will be taken from the environment variable 'STAGE_NAME'.*/
-     'stage',
-     /** Defines the deployment type */
-     'enableZeroDowntimeDeployment',
+    /** The stage name. If the stage name is not provided, it will be taken from the environment variable 'STAGE_NAME'.*/
+    'stage',
+    /** Defines the deployment type */
+    'enableZeroDowntimeDeployment',
     /** The source file to deploy to neo*/
     'source'
 ])
@@ -41,7 +41,7 @@ void call(parameters = [:]) {
         def script = checkScript(this, parameters) ?: this
         def utils = parameters.utils ?: new Utils()
         def jenkinsUtils = parameters.jenkinsUtils ?: new JenkinsUtils()
- 
+
         Map config = ConfigurationHelper.newInstance(this)
             .loadStepDefaults()
             .mixinGeneralConfig(script.commonPipelineEnvironment, GENERAL_CONFIG_KEYS)
@@ -50,10 +50,10 @@ void call(parameters = [:]) {
 
         utils.pushToSWA([
             step: STEP_NAME,
-            stepParamKey1: 'cfTargets',
-            stepParam1: config.cfTargets,
-            stepParamKey2: 'neoTargets',
-            stepParam2: config.neoTargets
+            stepParamKey1: 'stage',
+            stepParam1: stageName,
+            stepParamKey2: 'enableZeroDowntimeDeployment',
+            stepParam2: enableZeroDowntimeDeployment
         ], config)
 
         def index = 1
@@ -147,4 +147,3 @@ void runDeployment(deployments, deployment, index, script, stageName) {
         }
     }
 }
-

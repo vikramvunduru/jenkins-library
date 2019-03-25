@@ -115,4 +115,3 @@ static String fillTemplate(String templateText, Map binding){
     String result = engine.createTemplate(templateText).make(binding)
     return result
 }
-
