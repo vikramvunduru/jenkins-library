@@ -562,15 +562,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prequisites" title="Prequisites" class="md-nav__link">
-    Prequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
   </a>
   
 </li>
@@ -585,6 +578,27 @@
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" title="Side effects" class="md-nav__link">
+    Side effects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exceptions" title="Exceptions" class="md-nav__link">
+    Exceptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -885,15 +899,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prequisites" title="Prequisites" class="md-nav__link">
-    Prequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
   </a>
   
 </li>
@@ -908,6 +915,27 @@
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" title="Side effects" class="md-nav__link">
+    Side effects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exceptions" title="Exceptions" class="md-nav__link">
+    Exceptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -933,21 +961,11 @@
                 
                 <h1 id="newmanexecute">newmanExecute<a class="headerlink" href="#newmanexecute" title="Permanent link">&para;</a></h1>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>This script executes your <a href="https://www.getpostman.com">Postman</a> tests from a collection via the <a href="https://www.getpostman.com/docs/v6/postman/collection_runs/command_line_integration_with_newman">Newman</a> command line collection.</p>
-<h2 id="prequisites">Prequisites<a class="headerlink" href="#prequisites" title="Permanent link">&para;</a></h2>
+<p>This script executes <a href="https://www.getpostman.com">Postman</a> tests from a collection via the <a href="https://www.getpostman.com/docs/v6/postman/collection_runs/command_line_integration_with_newman">Newman</a> command line tool.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>prepared Postman with a test collection</li>
 </ul>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>Pipeline step:</p>
-<div class="codehilite"><pre><span></span><span class="n">newmanExecute</span> <span class="nl">script:</span> <span class="k">this</span>
-</pre></div>
-
-<p>This step should be used in combination with <code>testsPublishResults</code>:</p>
-<div class="codehilite"><pre><span></span><span class="n">newmanExecute</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">failOnError:</span> <span class="kc">false</span>
-<span class="n">testsPublishResults</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">junit:</span> <span class="o">[</span><span class="nl">pattern:</span> <span class="s1">&#39;**/newman/TEST-*.xml&#39;</span><span class="o">]</span>
-</pre></div>
-
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -962,13 +980,13 @@
 <tr>
 <td><code>dockerImage</code></td>
 <td>no</td>
-<td></td>
+<td><code>node:8-stretch</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>failOnError</code></td>
 <td>no</td>
-<td></td>
+<td><code>true</code></td>
 <td><code>true</code>, <code>false</code></td>
 </tr>
 <tr>
@@ -981,12 +999,12 @@
 <td><code>gitSshKeyCredentialsId</code></td>
 <td>no</td>
 <td></td>
-<td></td>
+<td>Jenkins credentials id</td>
 </tr>
 <tr>
 <td><code>newmanCollection</code></td>
 <td>no</td>
-<td></td>
+<td><code>**/*.postman_collection.json</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1002,9 +1020,15 @@
 <td></td>
 </tr>
 <tr>
+<td><code>newmanInstallCommand</code></td>
+<td>no</td>
+<td><code>npm install newman newman-reporter-html --global --quiet</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>newmanRunCommand</code></td>
 <td>no</td>
-<td></td>
+<td><code>run '${config.newmanCollection}' --environment '${config.newmanEnvironment}' --globals '${config.newmanGlobals}' --reporters junit,html --reporter-junit-export 'target/newman/TEST-${collectionDisplayName}.xml' --reporter-html-export 'target/newman/TEST-${collectionDisplayName}.html'</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1016,7 +1040,7 @@
 <tr>
 <td><code>stashContent</code></td>
 <td>no</td>
-<td></td>
+<td><code>[tests]</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1028,28 +1052,28 @@
 </tbody>
 </table>
 <ul>
-<li><code>dockerImage</code> - Docker image for code execution.</li>
+<li><code>dockerImage</code> - Name of the docker image that should be used. If empty, Docker is not used and the command is executed directly on the Jenkins system.</li>
 <li><code>failOnError</code> - Defines the behavior, in case tests fail.</li>
-<li><code>gitBranch</code> - see <code>testRepository</code></li>
-<li><code>gitSshKeyCredentialsId</code> - see <code>testRepository</code></li>
+<li><code>gitBranch</code> - Only if <code>testRepository</code> is provided: Branch of testRepository, defaults to master.</li>
+<li><code>gitSshKeyCredentialsId</code> - Only if <code>testRepository</code> is provided: Credentials for a protected testRepository</li>
 <li><code>newmanCollection</code> - The test collection that should be executed. This could also be a file pattern.</li>
 <li><code>newmanEnvironment</code> - Specify an environment file path or URL. Environments provide a set of variables that one can use within collections. see also <a href="https://github.com/postmanlabs/newman#newman-run-collection-file-source-options">Newman docs</a></li>
 <li><code>newmanGlobals</code> - Specify the file path or URL for global variables. Global variables are similar to environment variables but have a lower precedence and can be overridden by environment variables having the same name. see also <a href="https://github.com/postmanlabs/newman#newman-run-collection-file-source-options">Newman docs</a></li>
+<li><code>newmanInstallCommand</code> - The shell command that will be executed inside the docker container to install Newman.</li>
 <li><code>newmanRunCommand</code> - The newman command that will be executed inside the docker container.</li>
-<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in script: this. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
 <li><code>stashContent</code> - If specific stashes should be considered for the tests, you can pass this via this parameter.</li>
-<li><code>testRepository</code> - In case the test implementation is stored in a different repository than the code itself, you can define the repository containing the tests using parameter <code>testRepository</code> and if required <code>gitBranch</code> (for a different branch than master) and <code>gitSshKeyCredentialsId</code> (for protected repositories). For protected repositories the <code>testRepository</code> needs to contain the ssh git url.</li>
+<li><code>testRepository</code> - Define an additional repository where the test implementation is located. For protected repositories the <code>testRepository</code> needs to contain the ssh git url.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
 <table>
 <thead>
 <tr>
 <th>parameter</th>
 <th>general</th>
-<th>step</th>
-<th>stage</th>
+<th>step/stage</th>
 </tr>
 </thead>
 <tbody>
@@ -1057,70 +1081,77 @@
 <td><code>dockerImage</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
 <td><code>failOnError</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
 <td><code>gitBranch</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
 <td><code>gitSshKeyCredentialsId</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
 <td><code>newmanCollection</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
 <td><code>newmanEnvironment</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
 <td><code>newmanGlobals</code></td>
 <td></td>
 <td>X</td>
+</tr>
+<tr>
+<td><code>newmanInstallCommand</code></td>
+<td></td>
 <td>X</td>
 </tr>
 <tr>
 <td><code>newmanRunCommand</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
 <td><code>script</code></td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td><code>stashContent</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
 <td><code>testRepository</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 </tbody>
 </table>
+<h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
+<p>Step uses <code>dockerExecute</code> inside.</p>
+<h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
+<p>none</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p>Pipeline step:</p>
+<div class="codehilite"><pre><span></span><span class="n">newmanExecute</span> <span class="nl">script:</span> <span class="k">this</span>
+</pre></div>
+
+<p>This step should be used in combination with <code>testsPublishResults</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">newmanExecute</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">failOnError:</span> <span class="kc">false</span>
+<span class="n">testsPublishResults</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">junit:</span> <span class="o">[</span><span class="nl">pattern:</span> <span class="s1">&#39;**/newman/TEST-*.xml&#39;</span><span class="o">]</span>
+</pre></div>
                 
                   
                 
