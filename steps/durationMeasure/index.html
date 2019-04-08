@@ -430,20 +430,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-configuration" title="Pipeline configuration" class="md-nav__link">
-    Pipeline configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
@@ -775,6 +761,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-nav__link">
+      whitesourceExecuteScan
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -880,20 +878,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-configuration" title="Pipeline configuration" class="md-nav__link">
-    Pipeline configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
@@ -942,15 +926,11 @@ The duration is stored in a Map. The measurement data can then be written to an 
 <p>Measuring for example the duration of pipeline stages helps to identify potential bottlenecks within the deployment pipeline.
 This then helps to counter identified issues with respective optimization measures, e.g parallelization of tests.</p>
 </div>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>none</p>
-<h2 id="pipeline-configuration">Pipeline configuration<a class="headerlink" href="#pipeline-configuration" title="Permanent link">&para;</a></h2>
-<p>none</p>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -958,26 +938,47 @@ This then helps to counter identified issues with respective optimization measur
 </thead>
 <tbody>
 <tr>
-<td>script</td>
-<td>yes</td>
+<td><code>measurementName</code></td>
+<td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>measurementName</td>
-<td>no</td>
-<td>test_duration</td>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>Details:</p>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li><code>measurementName</code> defines the name of the measurement which is written to the Influx database.</li>
+<li><code>measurementName</code> - Defines the name of the measurement which is written to the Influx database.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>none</p>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>measurementName</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="n">durationMeasure</span> <span class="o">(</span><span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">measurementName:</span> <span class="s1">&#39;build_duration&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">//execute your build</span>

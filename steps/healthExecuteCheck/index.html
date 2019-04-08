@@ -485,13 +485,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
@@ -501,6 +494,13 @@
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -768,6 +768,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-nav__link">
+      whitesourceExecuteScan
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -880,13 +892,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
@@ -896,6 +901,13 @@
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -940,16 +952,11 @@
 <p class="admonition-title">Tip</p>
 <p>If using Spring Boot framework, ideally the provided <code>/health</code> endpoint is used and extended by development. Further information can be found in the <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html">Spring Boot documenation for Endpoints</a></p>
 </div>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>Pipeline step:</p>
-<div class="codehilite"><pre><span></span><span class="n">healthExecuteCheck</span> <span class="nl">testServerUrl:</span> <span class="s1">&#39;https://testserver.com&#39;</span>
-</pre></div>
-
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -957,64 +964,63 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>healthEndpoint</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>healthEndpoint</td>
-<td>no</td>
-<td>``</td>
-<td></td>
-</tr>
-<tr>
-<td>testServerUrl</td>
-<td>no</td>
+<td><code>testServerUrl</code></td>
+<td>yes</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>Details:</p>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li>Health check function is called providing full qualified <code>testServerUrl</code> (and optionally with <code>healthEndpoint</code> if endpoint is not the standard url) to the health check.</li>
-<li>In case response of the call is different than <code>HTTP 200 OK</code> the <strong>health check fails and the pipeline stops</strong>.</li>
+<li><code>healthEndpoint</code> - Optionally with <code>healthEndpoint</code> the health function is called if endpoint is not the standard url.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>testServerUrl</code> - Health check function is called providing full qualified <code>testServerUrl</code> to the health check.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
 <table>
 <thead>
 <tr>
 <th>parameter</th>
 <th>general</th>
-<th>step</th>
-<th>stage</th>
+<th>step/stage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>healthEndpoint</code></td>
 <td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>healthEndpoint</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>testServerUrl</td>
-<td>X</td>
-<td>X</td>
+<td><code>testServerUrl</code></td>
+<td></td>
 <td>X</td>
 </tr>
 </tbody>
 </table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p>Pipeline step:</p>
+<div class="codehilite"><pre><span></span><span class="n">healthExecuteCheck</span> <span class="nl">testServerUrl:</span> <span class="s1">&#39;https://testserver.com&#39;</span>
+</pre></div>
                 
                   
                 

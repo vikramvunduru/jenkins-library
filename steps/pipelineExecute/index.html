@@ -782,6 +782,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-nav__link">
+      whitesourceExecuteScan
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -949,17 +961,18 @@
                 
                 <h1 id="pipelineexecute">pipelineExecute<a class="headerlink" href="#pipelineexecute" title="Permanent link">&para;</a></h1>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>Loads a pipeline from a git repository. The idea is to set up a pipeline job in Jenkins that loads a minimal pipeline, which in turn loads the shared library and then uses this step to load the actual pipeline.</p>
+<p>Loads and executes a pipeline from another git repository.
+The idea is to set up a pipeline job in Jenkins that loads a minimal pipeline, which
+in turn loads the shared library and then uses this step to load the actual pipeline.</p>
 <p>A centrally maintained pipeline script (Jenkinsfile) can be re-used by
-several projects using <code>pipelineExecute</code> as outlined in the example
-below.</p>
+several projects using <code>pipelineExecute</code> as outlined in the example below.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>none</p>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -967,39 +980,83 @@ below.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>repoUrl</code></td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td><code>branch</code></td>
 <td>no</td>
-<td>'master'</td>
 <td></td>
-</tr>
-<tr>
-<td><code>path</code></td>
-<td>no</td>
-<td>'Jenkinsfile'</td>
 <td></td>
 </tr>
 <tr>
 <td><code>credentialsId</code></td>
 <td>no</td>
-<td>An empty String</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>repoUrl</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>repoUrl</code> The url to the git repository of the pipeline to be loaded.</li>
-<li><code>branch</code> The branch of the git repository from which the pipeline should be checked out.</li>
-<li><code>path</code> The path to the Jenkinsfile, inside the repository, to be loaded.</li>
-<li><code>credentialsId</code> The Jenkins credentials containing user and password needed to access a private git repository.</li>
+<li><code>branch</code> - The branch of the git repository from which the pipeline should be checked out.</li>
+<li><code>credentialsId</code> - The Jenkins credentials containing user and password needed to access a private git repository.</li>
+<li><code>path</code> - The path to the Jenkinsfile, inside the repository, to be loaded.</li>
+<li><code>repoUrl</code> - The url to the git repository of the pipeline to be loaded.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>none</p>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>branch</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>credentialsId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>repoUrl</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
 <p>none</p>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>

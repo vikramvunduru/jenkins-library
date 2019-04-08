@@ -762,6 +762,19 @@
     Examples
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-credentials-from-jenkins" title="Passing credentials from Jenkins" class="md-nav__link">
+    Passing credentials from Jenkins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -772,6 +785,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-nav__link">
+      whitesourceExecuteScan
+    </a>
   </li>
 
         
@@ -911,6 +936,19 @@
   <a href="#examples" title="Examples" class="md-nav__link">
     Examples
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-credentials-from-jenkins" title="Passing credentials from Jenkins" class="md-nav__link">
+    Passing credentials from Jenkins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1191,6 +1229,68 @@
 <p>If you see an error like <code>fatal: Not a git repository (or any parent up to mount point /home/jenkins)</code> it is likely that your test description cannot be found.<br />
 Please make sure to point parameter <code>testOptions</code> to your <code>conf.js</code> file like <code>testOptions: './path/to/my/tests/conf.js'</code></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="passing-credentials-from-jenkins">Passing credentials from Jenkins<a class="headerlink" href="#passing-credentials-from-jenkins" title="Permanent link">&para;</a></h3>
+<p>When running acceptance tests in a real environment, authentication will be enabled in most cases. UIVeri5 includes <a href="https://github.com/SAP/ui5-uiveri5/blob/master/docs/config/authentication.md">features to automatically perform the login</a> with credentials in the <code>conf.js</code>. However, having credentials to the acceptance system stored in plain text is not an optimal solution.</p>
+<p>Therefore, UIVeri5 allows templating to set parameters at runtime, as shown in the following example <code>conf.js</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Read environment variables</span>
+<span class="kr">const</span> <span class="nx">defaultParams</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TARGET_SERVER_URL</span><span class="p">,</span>
+    <span class="nx">user</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TEST_USER</span><span class="p">,</span>
+    <span class="nx">pass</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TEST_PASS</span>
+<span class="p">};</span>
+
+<span class="c1">// Resolve path to specs relative to the working directory</span>
+<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">specs</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">relative</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;*.spec.js&#39;</span><span class="p">));</span>
+
+<span class="c1">// export UIVeri5 config</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">profile</span><span class="o">:</span> <span class="s1">&#39;integration&#39;</span><span class="p">,</span>
+    <span class="nx">baseUrl</span><span class="o">:</span> <span class="s1">&#39;${params.url}&#39;</span><span class="p">,</span>
+    <span class="nx">specs</span><span class="o">:</span> <span class="nx">specs</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="nx">defaultParams</span><span class="p">,</span> <span class="c1">// can be overridden via cli `--params.&lt;key&gt;=&lt;value&gt;`</span>
+    <span class="nx">auth</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// set up authorization for CF XSUAA</span>
+        <span class="s1">&#39;sapcloud-form&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">user</span><span class="o">:</span> <span class="s1">&#39;${params.user}&#39;</span><span class="p">,</span>
+            <span class="nx">pass</span><span class="o">:</span> <span class="s1">&#39;${params.pass}&#39;</span><span class="p">,</span>
+            <span class="nx">userFieldSelector</span><span class="o">:</span> <span class="s1">&#39;input[name=&quot;username&quot;]&#39;</span><span class="p">,</span>
+            <span class="nx">passFieldSelector</span><span class="o">:</span> <span class="s1">&#39;input[name=&quot;password&quot;]&#39;</span><span class="p">,</span>
+            <span class="nx">logonButtonSelector</span><span class="o">:</span> <span class="s1">&#39;input[type=&quot;submit&quot;]&#39;</span><span class="p">,</span>
+            <span class="nx">redirectUrl</span><span class="o">:</span> <span class="sr">/cp.portal\/site/</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>While default values for <code>baseUrl</code>, <code>user</code> and <code>pass</code> are read from the environment, they can also be overridden when calling the CLI.</p>
+<p>In a custom Pipeline, this is very simple: Just wrap the call to <code>uiVeri5ExecuteTests</code> in <code>withCredentials</code> (<code>TARGET_SERVER_URL</code> is read from <code>config.yml</code>):</p>
+<div class="codehilite"><pre><span></span><span class="n">withCredentials</span><span class="o">([</span><span class="n">usernamePassword</span><span class="o">(</span>
+    <span class="nl">credentialsId:</span> <span class="s1">&#39;MY_ACCEPTANCE_CREDENTIALS&#39;</span><span class="o">,</span>
+    <span class="nl">passwordVariable:</span> <span class="s1">&#39;password&#39;</span><span class="o">,</span>
+    <span class="nl">usernameVariable:</span> <span class="s1">&#39;username&#39;</span>
+<span class="o">)])</span> <span class="o">{</span>
+    <span class="n">uiVeri5ExecuteTests</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">testOptions:</span> <span class="s2">&quot;./uiveri5/conf.js --params.user=${username} --params.pass=${password}&quot;</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>In a Pipeline Template, a <a href="#">Stage Exit</a> can be used to fetch the credentials and store them in the environment. As the environment is passed down to uiVeri5ExecuteTests, the variables will be present there. This is an example for the stage exit <code>.pipeline/extensions/Acceptance.groovy</code> where the <code>credentialsId</code> is read from the <code>config.yml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="nf">call</span><span class="o">(</span><span class="n">Map</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// read username and password from the credential store</span>
+    <span class="n">withCredentials</span><span class="o">([</span><span class="n">usernamePassword</span><span class="o">(</span>
+        <span class="nl">credentialsId:</span> <span class="n">params</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">acceptanceCredentialsId</span><span class="o">,</span>
+        <span class="nl">passwordVariable:</span> <span class="s1">&#39;password&#39;</span><span class="o">,</span>
+        <span class="nl">usernameVariable:</span> <span class="s1">&#39;username&#39;</span>
+    <span class="o">)])</span> <span class="o">{</span>
+        <span class="c1">// store the result in the environment variables for executeUIVeri5Test</span>
+        <span class="n">withEnv</span><span class="o">([</span><span class="s2">&quot;TEST_USER=${username}&quot;</span><span class="o">,</span> <span class="s2">&quot;TEST_PASS=${password}&quot;</span><span class="o">])</span> <span class="o">{</span>
+            <span class="c1">//execute original stage as defined in the template</span>
+            <span class="n">params</span><span class="o">.</span><span class="na">originalStage</span><span class="o">()</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="k">this</span>
+</pre></div>
                 
                   
                 
@@ -1226,13 +1326,13 @@ Please make sure to point parameter <code>testOptions</code> to your <code>conf.
           </a>
         
         
-          <a href="../../scenarios/changeManagement/" title="Build and Deploy Hybrid Applications with Jenkins and SAP Solution Manager" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Build and Deploy Hybrid Applications with Jenkins and SAP Solution Manager
+                whitesourceExecuteScan
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

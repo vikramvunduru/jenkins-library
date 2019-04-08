@@ -487,22 +487,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#side-effects" title="Side effects" class="md-nav__link">
-    Side effects
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exceptions" title="Exceptions" class="md-nav__link">
-    Exceptions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#example" title="Example" class="md-nav__link">
     Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-console-output" title="Example console output" class="md-nav__link">
+    Example console output
   </a>
   
 </li>
@@ -782,6 +775,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-nav__link">
+      whitesourceExecuteScan
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -908,22 +913,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#side-effects" title="Side effects" class="md-nav__link">
-    Side effects
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exceptions" title="Exceptions" class="md-nav__link">
-    Exceptions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#example" title="Example" class="md-nav__link">
     Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-console-output" title="Example console output" class="md-nav__link">
+    Example console output
   </a>
   
 </li>
@@ -956,7 +954,7 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -964,7 +962,37 @@
 </thead>
 <tbody>
 <tr>
-<td><code>stepParameters</code></td>
+<td><code>echoDetails</code></td>
+<td>no</td>
+<td><code>true</code></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>failOnError</code></td>
+<td>no</td>
+<td><code>true</code></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>libraryDocumentationUrl</code></td>
+<td>no</td>
+<td><code>https://sap.github.io/jenkins-library/</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>libraryRepositoryUrl</code></td>
+<td>no</td>
+<td><code>https://github.com/SAP/jenkins-library/</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mandatorySteps</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
@@ -976,18 +1004,112 @@
 <td></td>
 </tr>
 <tr>
-<td><code>echoDetails</code></td>
+<td><code>stepNameDoc</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stepParameters</code></td>
 <td>yes</td>
-<td>true</td>
-<td>true, false</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stepTimeouts</code></td>
+<td>no</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>stepParameters</code> - The parameters from the step to be executed. The list of parameters is then shown in the console output.</li>
-<li><code>stepName</code> - The name of the step executed to be shown in the console output.</li>
-<li>
-<p><code>echoDetails</code> - If set to true the following will be output to the console:</p>
+<li><code>echoDetails</code> - If it is set to true details will be output to the console. See example below.</li>
+<li><code>failOnError</code> - Defines the behavior, in case an error occurs which is handled by this step. When set to <code>false</code> an error results in an "UNSTABLE" build result and the pipeline can continue.</li>
+<li><code>libraryDocumentationUrl</code> - Defines the url of the library's documentation that will be used to generate the corresponding links to the step documentation.</li>
+<li><code>libraryRepositoryUrl</code> - Defines the url of the library's repository that will be used to generate the corresponding links to the step implementation.</li>
+<li><code>mandatorySteps</code> - Defines a list of mandatory steps (step names) which have to be successful (=stop the pipeline), even if <code>failOnError: false</code></li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>stepName</code> - Defines the name of the step for which the error handling is active. It will be shown in the console log.</li>
+<li><code>stepNameDoc</code> - Defines the documented step, in case the documentation reference should point to a different step.</li>
+<li><code>stepParameters</code> - Passes the parameters of the step which uses the error handling onto the error handling. The list of parameters is then shown in the console output.</li>
+<li><code>stepTimeouts</code> - Defines a Map containing step name as key and timout in minutes in order to stop an execution after a certain timeout. This helps to make pipeline runs more resilient with respect to long running steps.</li>
+</ul>
+<h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>echoDetails</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>failOnError</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>libraryDocumentationUrl</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>libraryRepositoryUrl</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mandatorySteps</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stepName</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stepNameDoc</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stepParameters</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stepTimeouts</code></td>
+<td></td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="n">handlePipelineStepErrors</span> <span class="o">(</span><span class="nl">stepName:</span> <span class="s1">&#39;executeHealthCheck&#39;</span><span class="o">,</span> <span class="nl">stepParameters:</span> <span class="n">parameters</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">def</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Utils</span><span class="o">().</span><span class="na">getMandatoryParameter</span><span class="o">(</span><span class="n">parameters</span><span class="o">,</span> <span class="s1">&#39;url&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">)</span>
+  <span class="kt">def</span> <span class="n">statusCode</span> <span class="o">=</span> <span class="n">curl</span><span class="o">(</span><span class="n">url</span><span class="o">)</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">statusCode</span> <span class="o">!=</span> <span class="s1">&#39;200&#39;</span><span class="o">)</span>
+    <span class="n">error</span> <span class="s2">&quot;Health Check failed: ${statusCode}&quot;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2 id="example-console-output">Example console output<a class="headerlink" href="#example-console-output" title="Permanent link">&para;</a></h2>
+<p>If <code>echoDetails</code> is set to true the following information will be output to the console:</p>
 <ol>
 <li>Step beginning: <code>--- Begin library step: ${stepName}.groovy ---</code></li>
 <li>Step end: <code>--- End library step: ${stepName}.groovy ---</code></li>
@@ -1009,23 +1131,6 @@ Further information:
 * Pipeline documentation: https://...
 * GitHub repository for pipeline steps: https://...
 ----------------------------------------------------------
-</pre></div>
-
-</li>
-</ul>
-<h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>none</p>
-<h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
-<p>none</p>
-<h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
-<p>none</p>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><span class="n">handlePipelineStepErrors</span> <span class="o">(</span><span class="nl">stepName:</span> <span class="s1">&#39;executeHealthCheck&#39;</span><span class="o">,</span> <span class="nl">stepParameters:</span> <span class="n">parameters</span><span class="o">)</span> <span class="o">{</span>
-  <span class="kt">def</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Utils</span><span class="o">().</span><span class="na">getMandatoryParameter</span><span class="o">(</span><span class="n">parameters</span><span class="o">,</span> <span class="s1">&#39;url&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">)</span>
-  <span class="kt">def</span> <span class="n">statusCode</span> <span class="o">=</span> <span class="n">curl</span><span class="o">(</span><span class="n">url</span><span class="o">)</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">statusCode</span> <span class="o">!=</span> <span class="s1">&#39;200&#39;</span><span class="o">)</span>
-    <span class="n">error</span> <span class="s2">&quot;Health Check failed: ${statusCode}&quot;</span>
-<span class="o">}</span>
 </pre></div>
                 
                   

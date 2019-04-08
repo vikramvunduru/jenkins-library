@@ -768,6 +768,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whitesourceExecuteScan/" title="whitesourceExecuteScan" class="md-nav__link">
+      whitesourceExecuteScan
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -926,33 +938,57 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
-<th>example values</th>
+<th>possible values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>script</code></td>
-<td>yes</td>
+<td><code>defines</code></td>
+<td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><code>dockerImage</code></td>
 <td>no</td>
-<td>'maven:3.5-jdk-7'</td>
+<td><code>maven:3.5-jdk-7</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>dockerOptions</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>flags</code></td>
+<td>no</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td><code>globalSettingsFile</code></td>
 <td>no</td>
 <td></td>
-<td>'local_folder/settings.xml'</td>
+<td></td>
 </tr>
 <tr>
-<td><code>projectSettingsFile</code></td>
+<td><code>goals</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>logSuccessfulMavenTransfers</code></td>
+<td>no</td>
+<td></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>m2Path</code></td>
 <td>no</td>
 <td></td>
 <td></td>
@@ -961,64 +997,104 @@
 <td><code>pomPath</code></td>
 <td>no</td>
 <td></td>
-<td>'local_folder/m2'</td>
+<td></td>
 </tr>
 <tr>
-<td><code>flags</code></td>
+<td><code>projectSettingsFile</code></td>
 <td>no</td>
 <td></td>
-<td>'-o'</td>
-</tr>
-<tr>
-<td><code>goals</code></td>
-<td>no</td>
 <td></td>
-<td>'clean install'</td>
 </tr>
 <tr>
-<td><code>m2Path</code></td>
-<td>no</td>
+<td><code>script</code></td>
+<td>yes</td>
 <td></td>
-<td>'local_folder/m2'</td>
-</tr>
-<tr>
-<td><code>defines</code></td>
-<td>no</td>
 <td></td>
-<td>'-Dmaven.tests.skip=true'</td>
-</tr>
-<tr>
-<td><code>logSuccessfulMavenTransfers</code></td>
-<td>no</td>
-<td><code>false</code></td>
-<td>'true'</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run.
-    Typically <code>this</code> is passed to this parameter. This allows the function
-    to access the commonPipelineEnvironment for retrieving, for example,
-    configuration parameters.</li>
-<li><code>dockerImage</code> Name of the docker image that should be used.</li>
-<li><code>globalSettingsFile</code> Path or url to the mvn settings file that should be used as global settings file.</li>
-<li><code>projectSettingsFile</code> Path or url to the mvn settings file that should be used as project settings file.</li>
-<li><code>pomPath</code> Path to the pom file that should be used.</li>
-<li><code>flags</code> Flags to provide when running mvn.</li>
-<li><code>goals</code> Maven goals that should be executed.</li>
-<li><code>m2Path</code> Path to the location of the local repository that should be used.</li>
-<li><code>defines</code> Additional properties.</li>
-<li><code>logSuccessfulMavenTransfers</code> configures maven to log successful downloads. This is set to <code>false</code> by default to reduce the noise in build logs.</li>
+<li><code>defines</code> - Additional properties.</li>
+<li><code>dockerImage</code> - Name of the docker image that should be used. If empty, Docker is not used and the command is executed directly on the Jenkins system.</li>
+<li><code>dockerOptions</code> - Docker options to be set when starting the container (List or String).</li>
+<li><code>flags</code> - Flags to provide when running mvn.</li>
+<li><code>globalSettingsFile</code> - Path or url to the mvn settings file that should be used as global settings file.</li>
+<li><code>goals</code> - Maven goals that should be executed.</li>
+<li><code>logSuccessfulMavenTransfers</code> - Configures maven to log successful downloads. This is set to <code>false</code> by default to reduce the noise in build logs.</li>
+<li><code>m2Path</code> - Path to the location of the local repository that should be used.</li>
+<li><code>pomPath</code> - Path to the pom file that should be used.</li>
+<li><code>projectSettingsFile</code> - Path or url to the mvn settings file that should be used as project settings file.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>The following parameters can also be specified as step parameters using the global configuration file:</p>
-<ul>
-<li><code>dockerImage</code></li>
-<li><code>globalSettingsFile</code></li>
-<li><code>projectSettingsFile</code></li>
-<li><code>pomPath</code></li>
-<li><code>m2Path</code></li>
-</ul>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>defines</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>dockerImage</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerOptions</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>flags</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>globalSettingsFile</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>goals</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>logSuccessfulMavenTransfers</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>m2Path</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>pomPath</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>projectSettingsFile</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
 <p>None</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
