@@ -982,7 +982,7 @@ several projects using <code>pipelineExecute</code> as outlined in the example b
 <tr>
 <td><code>branch</code></td>
 <td>no</td>
-<td></td>
+<td><code>master</code></td>
 <td></td>
 </tr>
 <tr>
@@ -994,12 +994,12 @@ several projects using <code>pipelineExecute</code> as outlined in the example b
 <tr>
 <td><code>path</code></td>
 <td>no</td>
-<td></td>
+<td><code>Jenkinsfile</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>repoUrl</code></td>
-<td>no</td>
+<td>yes</td>
 <td></td>
 <td></td>
 </tr>
@@ -1013,7 +1013,7 @@ several projects using <code>pipelineExecute</code> as outlined in the example b
 </table>
 <ul>
 <li><code>branch</code> - The branch of the git repository from which the pipeline should be checked out.</li>
-<li><code>credentialsId</code> - The Jenkins credentials containing user and password needed to access a private git repository.</li>
+<li><code>credentialsId</code> - The Jenkins credentials containing user and password needed to access a private git repository. In case access to the repository containing the pipeline script is restricted the credentialsId of the credentials used for accessing the repository needs to be provided. The corresponding credentials needs to be configured in Jenkins accordingly.</li>
 <li><code>path</code> - The path to the Jenkinsfile, inside the repository, to be loaded.</li>
 <li><code>repoUrl</code> - The url to the git repository of the pipeline to be loaded.</li>
 <li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
