@@ -940,7 +940,7 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -948,129 +948,198 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>dockerImage</td>
+<td><code>dockerImage</code></td>
 <td>no</td>
 <td><code>node:8-stretch</code></td>
 <td></td>
 </tr>
 <tr>
-<td>dockerWorkspace</td>
+<td><code>dockerWorkspace</code></td>
 <td>no</td>
 <td><code>/home/node</code></td>
 <td></td>
 </tr>
 <tr>
-<td>envVars</td>
-<td>no</td>
-<td><code>[:]</code></td>
-<td></td>
-</tr>
-<tr>
-<td>failOnError</td>
-<td>no</td>
-<td><code>false</code></td>
-<td></td>
-</tr>
-<tr>
-<td>gitBranch</td>
+<td><code>envVars</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>gitSshKeyCredentialsId</td>
+<td><code>failOnError</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>outputFormat</td>
+<td><code>gitBranch</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>gitSshKeyCredentialsId</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>outputFormat</code></td>
 <td>no</td>
 <td><code>junit</code></td>
 <td><code>tap</code></td>
 </tr>
 <tr>
-<td>repository</td>
+<td><code>repository</code></td>
 <td>no</td>
 <td><code>https://github.com/bats-core/bats-core.git</code></td>
 <td></td>
 </tr>
 <tr>
-<td>stashContent</td>
-<td>no</td>
-<td><code>['tests']</code></td>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>testPackage</td>
+<td><code>stashContent</code></td>
+<td>no</td>
+<td><code>[tests]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>testPackage</code></td>
 <td>no</td>
 <td><code>piper-bats</code></td>
 <td></td>
 </tr>
 <tr>
-<td>testPath</td>
+<td><code>testPath</code></td>
 <td>no</td>
 <td><code>src/test</code></td>
 <td></td>
 </tr>
 <tr>
-<td>testRepository</td>
+<td><code>testRepository</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>Details:</p>
 <ul>
-<li><code>outputFormat</code> defines the format of the test result output. <code>junit</code> would be the standard for automated build environments but you could use also the option <code>tap</code>.</li>
-<li>For the transformation of the test result to xUnit format the node module <strong>tap-xunit</strong> is used. <code>dockerImage</code> and <code>dockerWorkspace</code> define the Docker image used for the transformation and <code>testPackage</code> defines the name of the test package used in the xUnit result file.</li>
-<li><code>testPath</code> defines either the directory which contains the test files (<code>*.bats</code>) or a single file. You can find further details in the <a href="https://github.com/bats-core/bats-core#usage">Bats-core documentation</a></li>
-<li>With <code>failOnError</code> you can define the behavior, in case tests fail. For example, in case of <code>outputFormat: 'junit'</code> you should set it to <code>false</code>. Otherwise test results cannot be recorded using the <code>testsPublishhResults</code> step afterwards.</li>
-<li>
-<p>You can pass environment variables to the test execution by defining parameter <code>envVars</code>.</p>
-<p>With <code>envVars</code> it is possible to pass either fixed values but also templates using <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a>.</p>
-<p>Example:</p>
-<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">batsExecuteTests script</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">this, envVars = [</span>
-  <span class="l l-Scalar l-Scalar-Plain">FIX_VALUE</span><span class="p p-Indicator">:</span> <span class="s">&#39;my</span><span class="nv"> </span><span class="s">fixed</span><span class="nv"> </span><span class="s">value&#39;</span><span class="err">,</span>
-  <span class="l l-Scalar l-Scalar-Plain">CONTAINER_NAME</span><span class="p p-Indicator">:</span> <span class="s">&#39;${commonPipelineEnvironment.configuration.steps.executeBatsTests.dockerContainerName}&#39;</span><span class="err">,</span>
-  <span class="l l-Scalar l-Scalar-Plain">IMAGE_NAME</span><span class="p p-Indicator">:</span> <span class="s">&#39;${return</span><span class="nv"> </span><span class="s">commonPipelineEnvironment.getDockerImageNameAndTag()}&#39;</span>
-<span class="err">]</span>
-</pre></div>
-
-<p>This means within the test one could refer to environment variables by calling e.g.
-<code>run docker run --rm -i --name $CONTAINER_NAME --entrypoint /bin/bash $IMAGE_NAME echo "Test"</code></p>
-</li>
-<li>
-<p>Using parameters <code>testRepository</code> the tests can be loaded from another reposirory. In case the tests are not located in the master branch the branch can be specified with <code>gitBranch</code>. For protected repositories you can also define the access credentials via <code>gitSshKeyCredentialsId</code>. <strong>Note: In case of using a protected repository, <code>testRepository</code> should include the ssh link to the repository.</strong></p>
-</li>
-<li>The parameter <code>repository</code> defines the version of <strong>bats-core</strong> to be used. By default we use the version from the master branch.</li>
+<li><code>dockerImage</code> - Name of the docker image that should be used. If empty, Docker is not used and the command is executed directly on the Jenkins system.</li>
+<li><code>dockerWorkspace</code> - Kubernetes only: Specifies a dedicated user home directory for the container which will be passed as value for environment variable <code>HOME</code>.</li>
+<li><code>envVars</code> - Defines the environment variables to pass to the test execution.</li>
+<li><code>failOnError</code> - Defines the behavior, in case tests fail. For example, in case of <code>outputFormat: 'junit'</code> you should set it to <code>false</code>. Otherwise test results cannot be recorded using the <code>testsPublishhResults</code> step afterwards.</li>
+<li><code>gitBranch</code> - Defines the branch where the tests are located, in case the tests are not located in the master branch.</li>
+<li><code>gitSshKeyCredentialsId</code> - Defines the access credentials for protected repositories. Note: In case of using a protected repository, <code>testRepository</code> should include the ssh link to the repository.</li>
+<li><code>outputFormat</code> - Defines the format of the test result output. <code>junit</code> would be the standard for automated build environments but you could use also the option <code>tap</code>.</li>
+<li><code>repository</code> - Defines the version of <strong>bats-core</strong> to be used. By default we use the version from the master branch.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>stashContent</code> - Specific stashes that should be considered for the step execution.</li>
+<li><code>testPackage</code> - For the transformation of the test result to xUnit format the node module <strong>tap-xunit</strong> is used. This parameter defines the name of the test package used in the xUnit result file.</li>
+<li><code>testPath</code> - Defines either the directory which contains the test files (<code>*.bats</code>) or a single file. You can find further details in the <a href="https://github.com/bats-core/bats-core#usage">Bats-core documentation</a>.</li>
+<li><code>testRepository</code> - Allows to load tests from another repository.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>The following parameters can also be specified as step/stage/general parameters using the <a href="../../configuration/">global configuration</a>:</p>
-<ul>
-<li>dockerImage</li>
-<li>dockerWorkspace</li>
-<li>envVars</li>
-<li>failOnError</li>
-<li>gitBranch</li>
-<li>gitSshKeyCredentialsId</li>
-<li>outputFormat</li>
-<li>repository</li>
-<li>stashContent</li>
-<li>testPackage</li>
-<li>testPath</li>
-<li>testRepository</li>
-</ul>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerImage</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerWorkspace</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>envVars</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>failOnError</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitBranch</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitSshKeyCredentialsId</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>outputFormat</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>repository</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stashContent</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>testPackage</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>testPath</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>testRepository</code></td>
+<td></td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="n">batsExecuteTests</span> <span class="nl">script:</span><span class="k">this</span>
 <span class="n">testsPublishResults</span> <span class="nl">junit:</span> <span class="o">[</span><span class="nl">pattern:</span> <span class="s1">&#39;**/Test-*.xml&#39;</span><span class="o">,</span> <span class="nl">archive:</span> <span class="kc">true</span><span class="o">]</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span>With `envVars` it is possible to pass either fixed values but also templates using [`commonPipelineEnvironment`](commonPipelineEnvironment.md).
+
+Example:
+
+```yaml
+batsExecuteTests script: this, envVars = [
+  FIX_VALUE: &#39;my fixed value&#39;,
+  CONTAINER_NAME: &#39;${commonPipelineEnvironment.configuration.steps.executeBatsTests.dockerContainerName}&#39;,
+  IMAGE_NAME: &#39;${return commonPipelineEnvironment.getDockerImageNameAndTag()}&#39;
+]
+```
+
+This means within the test one could refer to environment variables by calling e.g.
+`run docker run --rm -i --name \$CONTAINER_NAME --entrypoint /bin/bash \$IMAGE_NAME echo &quot;Test&quot;`
 </pre></div>
                 
                   
