@@ -976,7 +976,7 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -984,39 +984,27 @@
 </thead>
 <tbody>
 <tr>
-<td><code>script</code></td>
+<td><code>changeDocumentId</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><code>changeDocumentId</code></td>
-<td>for <code>SOLMAN</code></td>
-<td></td>
+<td><code>changeManagement/changeDocumentLabel</code></td>
+<td>no</td>
+<td><code>ChangeDocument\s?:</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>transportType</code></td>
-<td>for <code>CTS</code></td>
+<td><code>changeManagement/clientOpts</code></td>
 <td>no</td>
 <td></td>
-</tr>
-<tr>
-<td><code>targetSystem</code></td>
-<td>for <code>CTS</code></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><code>description</code></td>
-<td>for <code>CTS</code></td>
-<td>no</td>
 <td></td>
 </tr>
 <tr>
 <td><code>changeManagement/credentialsId</code></td>
-<td>yes</td>
-<td></td>
+<td>no</td>
+<td><code>CM</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1026,9 +1014,9 @@
 <td></td>
 </tr>
 <tr>
-<td><code>changeManagement/clientOpts</code></td>
+<td><code>changeManagement/git/format</code></td>
 <td>no</td>
-<td></td>
+<td><code>%b</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1044,48 +1032,179 @@
 <td></td>
 </tr>
 <tr>
-<td><code>changeManagement/changeDocumentLabel</code></td>
-<td>no</td>
-<td><code>ChangeDocument\s?:</code></td>
-<td>regex pattern</td>
+<td><code>changeManagement/rfc/developmentClient</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
-<td><code>changeManagement/git/format</code></td>
-<td>no</td>
-<td><code>%b</code></td>
-<td>see <code>git log --help</code></td>
+<td><code>changeManagement/rfc/developmentInstance</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td><code>changeManagement/type</code></td>
 <td>no</td>
-<td><code>SOLMAN</code></td>
-<td><code>SOLMAN</code>, <code>CTS</code></td>
+<td><code>NONE</code></td>
+<td><code>SOLMAN</code>, <code>CTS</code>, <code>RFC</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td><code>developmentSystemId</code></td>
-<td>for <code>SOLMAN</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>targetSystem</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>transportType</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td>no</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the <code>this</code> parameter, as in <code>script: this</code>. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for retrieving, for example, configuration parameters.</li>
-<li><code>changeDocumentId</code> - for <code>SOLMAN</code> only. The id of the change document to that the transport request is bound to. Typically this value is provided via commit message in the commit history.</li>
-<li><code>changeManagement/type</code> Where/how the transport request is created (via SAP Solution Manager, ABAP).</li>
-<li><code>changeManagement/credentialsId</code> - The credentials to connect to the service endpoint (Solution Manager, ABAP System).</li>
-<li><code>changeManagement/endpoint</code> - The service endpoint (Solution Manager, ABAP System).</li>
-<li><code>changeManagement/clientOpts</code>- Options forwarded to JVM used by the CM client, like <code>JAVA_OPTS</code></li>
-<li><code>changeManagement/git/from</code> - The starting point for retrieving the change document id</li>
-<li><code>changeManagement/git/to</code> - The end point for retrieving the change document id</li>
-<li><code>changeManagement/changeDocumentLabel</code> - For type <code>SOLMAN</code> only. A pattern used for identifying lines holding the change document id.</li>
+<li><code>changeDocumentId</code> - The id of the change document to that the transport request is bound to. Typically this value is provided via commit message in the commit history. Only for <code>SOLMAN</code>.</li>
+<li><code>changeManagement/changeDocumentLabel</code> - A pattern used for identifying lines holding the change document id.</li>
+<li><code>changeManagement/clientOpts</code> - Additional options for cm command line client, e.g. JAVA_OPTS.</li>
+<li><code>changeManagement/credentialsId</code> - The id of the credentials to connect to the Solution Manager. The credentials needs to be maintained on Jenkins.</li>
+<li><code>changeManagement/endpoint</code> - The service endpoint, e.g. Solution Manager, ABAP System.</li>
 <li><code>changeManagement/git/format</code> - Specifies what part of the commit is scanned. By default the body of the commit message is scanned.</li>
-<li><code>description</code> - for <code>CTS</code> only. The description of the transport request.</li>
-<li><code>targetSystem</code> - for <code>CTS</code> only. The system receiving the transport request.</li>
-<li><code>transportType</code> - for type <code>CTS</code> only. Typically <code>W</code> (workbench) or <code>C</code> customizing.</li>
-<li><code>developmentSystemId</code>- for <code>SOLMAN</code> only. The logical system id for which the transport request is created. The format is <code>&lt;SID&gt;~&lt;TYPE&gt;(/&lt;CLIENT&gt;)?</code>. For ABAP Systems the <code>developmentSystemId</code> looks like <code>DEV~ABAP/100</code>. For non-ABAP systems the <code>developmentSystemId</code> looks like e.g. <code>L21~EXT_SRV</code> or <code>J01~JAVA</code>. In case the system type is not known (in the examples provided here: <code>EXT_SRV</code> or <code>JAVA</code>) the information can be retrieved from the Solution Manager instance.</li>
+<li><code>changeManagement/git/from</code> - The starting point for retrieving the change document id.</li>
+<li><code>changeManagement/git/to</code> - The end point for retrieving the change document id.</li>
+<li><code>changeManagement/rfc/developmentClient</code> - AS ABAP client number. Only for <code>RFC</code>.</li>
+<li><code>changeManagement/rfc/developmentInstance</code> - AS ABAP instance number. Only for <code>RFC</code>.</li>
+<li><code>changeManagement/type</code> - Defines where the transport request is created, e.g. SAP Solution Manager, ABAP System.</li>
+<li><code>description</code> - The description of the transport request. Only for <code>CTS</code>.</li>
+<li><code>developmentSystemId</code> - The logical system id for which the transport request is created. The format is <code>&lt;SID&gt;~&lt;TYPE&gt;(/&lt;CLIENT&gt;)?</code>. For ABAP Systems the <code>developmentSystemId</code> looks like <code>DEV~ABAP/100</code>. For non-ABAP systems the <code>developmentSystemId</code> looks like e.g. <code>L21~EXT_SRV</code> or <code>J01~JAVA</code>. In case the system type is not known (in the examples provided here: <code>EXT_SRV</code> or <code>JAVA</code>) the information can be retrieved from the Solution Manager instance. Only for <code>SOLMAN</code>.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>targetSystem</code> - The system receiving the transport request. Only for <code>CTS</code>.</li>
+<li><code>transportType</code> - Typically <code>W</code> (workbench) or <code>C</code> customizing. Only for <code>CTS</code>.</li>
+<li><code>verbose</code> - Provides additional details. Only for <code>RFC</code>.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>changeDocumentId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>changeManagement/changeDocumentLabel</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/clientOpts</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/credentialsId</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/endpoint</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/git/format</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/git/from</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/git/to</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/rfc/developmentClient</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/rfc/developmentInstance</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>changeManagement/type</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>developmentSystemId</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>targetSystem</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>transportType</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td></td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
 <p>The step is configured using a customer configuration file provided as
 resource in an custom shared library.</p>
 <div class="codehilite"><pre><span></span><span class="nd">@Library</span><span class="o">(</span><span class="s1">&#39;piper-lib-os@master&#39;</span><span class="o">)</span> <span class="n">_</span>
