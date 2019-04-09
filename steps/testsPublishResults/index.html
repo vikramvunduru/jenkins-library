@@ -700,6 +700,13 @@
     Explanation of pipeline step
   </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" title="Parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
@@ -958,6 +965,13 @@
     Explanation of pipeline step
   </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" title="Parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
@@ -1063,11 +1077,11 @@
 <span class="o">)</span>
 </pre></div>
 
-<p>Available parameters:</p>
+<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -1075,56 +1089,51 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
-<td>yes</td>
-<td></td>
-<td></td>
+<td><code>cobertura</code></td>
+<td>no</td>
+<td><code>[pattern:**/target/coverage/cobertura-coverage.xml, onlyStableBuilds:true, allowEmptyResults:true, archive:false, active:false]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
 </tr>
 <tr>
 <td><code>failOnError</code></td>
 <td>no</td>
-<td><code>false</code></td>
+<td></td>
 <td><code>true</code>, <code>false</code></td>
 </tr>
 <tr>
-<td>junit</td>
+<td><code>jacoco</code></td>
 <td>no</td>
-<td><code>false</code></td>
-<td>true, false</td>
+<td><code>[pattern:**/target/*.exec, allowEmptyResults:true, archive:false, active:false]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
 </tr>
 <tr>
-<td>jacoco</td>
+<td><code>jmeter</code></td>
 <td>no</td>
-<td><code>false</code></td>
-<td>true, false</td>
+<td><code>[pattern:**/*.jtl, errorFailedThreshold:20, errorUnstableThreshold:10, errorUnstableResponseTimeThreshold:, relativeFailedThresholdPositive:0, relativeFailedThresholdNegative:0, relativeUnstableThresholdPositive:0, relativeUnstableThresholdNegative:0, modeOfThreshold:false, modeThroughput:false, nthBuildNumber:0, configType:PRT, failBuildIfNoResultFile:false, compareBuildPrevious:true, allowEmptyResults:true, archive:false, active:false]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
 </tr>
 <tr>
-<td>cobertura</td>
+<td><code>junit</code></td>
 <td>no</td>
-<td><code>false</code></td>
-<td>true, false</td>
+<td><code>[pattern:**/TEST-*.xml, updateResults:false, allowEmptyResults:true, archive:false, active:false]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
 </tr>
 <tr>
-<td>jmeter</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>true, false</td>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>script</code> - The common script environment of the Jenkinsfile running.
-    Typically the reference to the script calling the pipeline step is provided
-    with the <code>this</code> parameter, as in <code>script: this</code>.
-    This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a>
-    for retrieving, for example, configuration parameters.</li>
-<li><code>failOnError</code> - If <code>failOnError</code> it set to <code>true</code> the step will fail the build if JUnit detected any failing tests.</li>
-<li><code>junit</code> - Publishes test results files in JUnit format with the <a href="https://plugins.jenkins.io/junit">JUnit Plugin</a>.</li>
-<li><code>jacoco</code> - Publishes code coverage with the <a href="https://plugins.jenkins.io/jacoco">JaCoCo plugin</a> .</li>
 <li><code>cobertura</code> - Publishes code coverage with the <a href="https://plugins.jenkins.io/cobertura">Cobertura plugin</a>.</li>
+<li><code>failOnError</code> - If it is set to <code>true</code> the step will fail the build if JUnit detected any failing tests.</li>
+<li><code>jacoco</code> - Publishes code coverage with the <a href="https://plugins.jenkins.io/jacoco">JaCoCo plugin</a>.</li>
 <li><code>jmeter</code> - Publishes performance test results with the <a href="https://plugins.jenkins.io/performance">Performance plugin</a>.</li>
+<li><code>junit</code> - Publishes test results files in JUnit format with the <a href="https://plugins.jenkins.io/junit">JUnit Plugin</a>.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
 </ul>
-<p>Each of the parameters <code>junit</code>, <code>jacoco</code>, <code>cobertura</code> and <code>jmeter</code> can be set to <code>true</code> or <code>false</code> but also to a map of parameters to hand in different settings for the tools.</p>
 <h3 id="junit">junit<a class="headerlink" href="#junit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1352,13 +1361,49 @@
 </tbody>
 </table>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>Following parameters can also be specified as step parameters using the global configuration file:</p>
-<ul>
-<li><code>junit</code></li>
-<li><code>jacoco</code></li>
-<li><code>cobertura</code></li>
-<li><code>jmeter</code></li>
-</ul>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cobertura</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>failOnError</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>jacoco</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>jmeter</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>junit</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
 <p>none</p>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
