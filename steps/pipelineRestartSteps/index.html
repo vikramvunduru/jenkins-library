@@ -605,35 +605,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#details" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -919,35 +906,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#details" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -997,6 +971,71 @@ The more complex Piper pipelines which share a state via <a href="../commonPipel
 <p>This is done in a way that the pipeline waits for user input to restart the pipeline in case of a failure. In case this user input is not provided the pipeline stops after a timeout which can be configured.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>none</p>
+<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>mandatory</th>
+<th>default</th>
+<th>possible values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sendMail</code></td>
+<td>no</td>
+<td><code>true</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timeoutInSeconds</code></td>
+<td>no</td>
+<td><code>900</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>sendMail</code> - If it is set to true<code>the step</code>mailSendNotification` will be triggered in case of an error.</li>
+<li><code>timeoutInSeconds</code> - Defines the time period where the job waits for input. Default is 15 minutes. Once this time is passed the job enters state FAILED.</li>
+</ul>
+<h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sendMail</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>timeoutInSeconds</code></td>
+<td></td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>Usage of pipeline step:</p>
 <div class="codehilite"><pre><span></span><span class="n">pipelineRestartSteps</span> <span class="o">(</span><span class="nl">script:</span> <span class="k">this</span><span class="o">)</span> <span class="o">{</span>
@@ -1011,76 +1050,6 @@ The more complex Piper pipelines which share a state via <a href="../commonPipel
 <p>Use <code>node</code> inside the step. If a <code>node</code> exists outside the step context, the <code>input</code> step which is triggered in the process will block a Jenkins executor.</p>
 <p>In case you cannot use <code>node</code> inside this step, please choose the parameter <code>timeoutInSeconds</code> carefully!</p>
 </div>
-<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>parameter</th>
-<th>mandatory</th>
-<th>default</th>
-<th>possible values</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>script</td>
-<td>yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>sendMail</td>
-<td>no</td>
-<td><code>true</code></td>
-<td></td>
-</tr>
-<tr>
-<td>timeoutInSeconds</td>
-<td>no</td>
-<td><code>900</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li>If <code>sendMail: true</code> the step <code>mailSendNotification</code> will be triggered in case of an error</li>
-<li><code>timeoutInSeconds</code> defines the time period where the job waits for input. Default is 15 minutes. Once this time is passed the job enters state FAILED.</li>
-</ul>
-<h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
-<table>
-<thead>
-<tr>
-<th>parameter</th>
-<th>general</th>
-<th>step</th>
-<th>stage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>script</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>sendMail</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>timeoutInSeconds</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-</tbody>
-</table>
 <h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
 <p>none</p>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
