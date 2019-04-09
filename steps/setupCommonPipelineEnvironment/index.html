@@ -964,18 +964,18 @@
 <p>Initializes the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a>, which is used throughout the complete pipeline.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This step needs to run at the beginning of a pipeline right after the SCM checkout.
-Then subsequent pipeline steps consume the information from <code>commonPipelineEnvironment</code>; it does not need to be passed to pipeline steps explicitly.</p>
 </div>
+<p>This step needs to run at the beginning of a pipeline right after the SCM checkout.
+   Then subsequent pipeline steps consume the information from <code>commonPipelineEnvironment</code>; it does not need to be passed to pipeline steps explicitly.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>A <strong>configuration file</strong> with properties (default location: <code>.pipeline/config.properties</code>). The property values are used as default values in many pipeline steps.</li>
+<li>A <strong>configuration file</strong> with properties. The property values are used as default values in many pipeline steps.</li>
 </ul>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -983,25 +983,59 @@ Then subsequent pipeline steps consume the information from <code>commonPipeline
 </thead>
 <tbody>
 <tr>
-<td><code>script</code></td>
-<td>yes</td>
-<td>-</td>
+<td><code>collectTelemetryData</code></td>
+<td>no</td>
+<td><code>true</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>configFile</code></td>
 <td>no</td>
-<td><code>.pipeline/config.properties</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>script</code> - The reference to the pipeline script (Jenkinsfile). Normally <code>this</code> needs to be provided.</li>
+<li><code>collectTelemetryData</code> - </li>
 <li><code>configFile</code> - Property file defining project specific settings.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>none</p>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>collectTelemetryData</code></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td><code>configFile</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
 <p>none</p>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
