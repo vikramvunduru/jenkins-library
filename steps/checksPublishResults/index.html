@@ -1127,7 +1127,7 @@
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -1135,78 +1135,79 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>aggregation</code></td>
+<td>no</td>
+<td><code>[active:true, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>archive</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>checkstyle</code></td>
+<td>no</td>
+<td><code>[pattern:**/target/checkstyle-result.xml, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>cpd</code></td>
+<td>no</td>
+<td><code>[pattern:**/target/cpd.xml, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>eslint</code></td>
+<td>no</td>
+<td><code>[pattern:**/eslint.xml, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>findbugs</code></td>
+<td>no</td>
+<td><code>[pattern:**/target/findbugsXml.xml, **/target/findbugs.xml, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>pmd</code></td>
+<td>no</td>
+<td><code>[pattern:**/target/pmd.xml, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>pylint</code></td>
+<td>no</td>
+<td><code>[pattern:**/pylint.log, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td><code>script</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>aggregation</td>
+<td><code>tasks</code></td>
 <td>no</td>
-<td><code>true</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>tasks</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>pmd</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>cpd</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>findbugs</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>checkstyle</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>eslint</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>pylint</td>
-<td>no</td>
-<td><code>false</code></td>
-<td>see below</td>
-</tr>
-<tr>
-<td>archive</td>
-<td>no</td>
-<td><code>false</code></td>
-<td><code>true</code>, <code>false</code></td>
+<td><code>[pattern:**/*.java, low:, normal:TODO,REVISE,XXX, high:FIXME, archive:true, active:false, thresholds:[fail:[high:0]]]</code></td>
+<td><code>true</code>, <code>false</code>, <code>Map</code></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>aggregation</code> - Publishes .</li>
-<li><code>tasks</code> - Searches and publishes TODOs in files with the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Task+Scanner+Plugin">Task Scanner Plugin</a>.</li>
-<li><code>pmd</code> - Publishes PMD findings with the <a href="https://plugins.jenkins.io/pmd">PMD plugin</a> .</li>
-<li><code>cpd</code> - Publishes CPD findings with the <a href="https://plugins.jenkins.io/dry">DRY plugin</a>.</li>
-<li><code>findbugs</code> - Publishes Findbugs findings with the <a href="https://plugins.jenkins.io/findbugs">Findbugs plugin</a>.</li>
+<li><code>aggregation</code> - Allows to publish the check results.</li>
+<li><code>archive</code> - </li>
 <li><code>checkstyle</code> - Publishes Checkstyle findings with the <a href="https://plugins.jenkins.io/checkstyle">Checkstyle plugin</a>.</li>
+<li><code>cpd</code> - Publishes CPD findings with the <a href="https://plugins.jenkins.io/dry">DRY plugin</a>.</li>
 <li><code>eslint</code> - Publishes ESLint findings (in <a href="https://eslint.org/docs/user-guide/formatters/">JSLint format</a>) with the <a href="https://plugins.jenkins.io/warnings">Warnings plugin</a>.</li>
+<li><code>findbugs</code> - Publishes Findbugs findings with the <a href="https://plugins.jenkins.io/findbugs">Findbugs plugin</a>.</li>
+<li><code>pmd</code> - Publishes PMD findings with the <a href="https://plugins.jenkins.io/pmd">PMD plugin</a>.</li>
 <li><code>pylint</code> - Publishes PyLint findings with the <a href="https://plugins.jenkins.io/warnings">Warnings plugin</a>, pylint needs to run with <code>--output-format=parseable</code> option.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>tasks</code> - Searches and publishes TODOs in files with the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Task+Scanner+Plugin">Task Scanner Plugin</a>.</li>
 </ul>
-<p>Each of the parameters <code>aggregation</code>, <code>tasks</code>, <code>pmd</code>, <code>cpd</code>, <code>findbugs</code>, <code>checkstyle</code>, <code>eslint</code> and <code>pylint</code> can be set to <code>true</code> or <code>false</code> but also to a map of parameters to hand in different settings for the tools.</p>
 <h3 id="aggregation">aggregation<a class="headerlink" href="#aggregation" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1462,18 +1463,69 @@
 </tbody>
 </table>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>Following parameters can also be specified as step parameters using the global configuration file:</p>
-<ul>
-<li><code>aggregation</code></li>
-<li><code>tasks</code></li>
-<li><code>pmd</code></li>
-<li><code>cpd</code></li>
-<li><code>findbugs</code></li>
-<li><code>checkstyle</code></li>
-<li><code>eslint</code></li>
-<li><code>pylint</code></li>
-<li><code>archive</code></li>
-</ul>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aggregation</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>archive</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>checkstyle</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>cpd</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>eslint</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>findbugs</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>pmd</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>pylint</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>tasks</code></td>
+<td></td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
 <h3 id="thresholds">Thresholds<a class="headerlink" href="#thresholds" title="Permanent link">&para;</a></h3>
 <p>It is possible to define thresholds to fail the build on a certain count of findings. To achive this, just define your thresholds a followed for the specific check tool:</p>
 <div class="codehilite"><pre><span></span><span class="nl">thresholds:</span> <span class="o">[</span><span class="nl">fail:</span> <span class="o">[</span><span class="nl">all:</span> <span class="mi">999</span><span class="o">,</span> <span class="nl">low:</span> <span class="mi">99</span><span class="o">,</span> <span class="nl">normal:</span> <span class="mi">9</span><span class="o">,</span> <span class="nl">high:</span> <span class="mi">0</span><span class="o">]]</span>
