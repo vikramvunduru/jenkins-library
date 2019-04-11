@@ -1246,25 +1246,25 @@ docker run -d -p 3000:3000 --name grafana --restart=always --link influxdb:influ
 <tr>
 <td>customData</td>
 <td>no</td>
-<td><code>commonPipelineEnvironment.getInfluxCustomData()</code></td>
+<td><code>InfluxData.getInstance().getFields().jenkins_custom_data</code></td>
 <td></td>
 </tr>
 <tr>
 <td>customDataMap</td>
 <td>no</td>
-<td><code>commonPipelineEnvironment.getInfluxCustomDataMap()</code></td>
+<td><code>InfluxData.getInstance().getFields()</code></td>
 <td></td>
 </tr>
 <tr>
 <td>customDataMapTags</td>
 <td>no</td>
-<td><code>commonPipelineEnvironment.getInfluxCustomDataTags()</code></td>
+<td><code>InfluxData.getInstance().getTags()</code></td>
 <td></td>
 </tr>
 <tr>
 <td>customDataTags</td>
 <td>no</td>
-<td><code>commonPipelineEnvironment.getInfluxCustomDataTags()</code></td>
+<td><code>InfluxData.getInstance().getTags().jenkins_custom_data</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1384,7 +1384,7 @@ docker run -d -p 3000:3000 --name grafana --restart=always --link influxdb:influ
 <p>The Influx plugin collects following data in the Piper context:</p>
 <ul>
 <li>All data as per default <a href="https://wiki.jenkins.io/display/JENKINS/InfluxDB+Plugin">InfluxDB plugin capabilities</a></li>
-<li>Additional data collected via <code>commonPipelineEnvironment.setInfluxCustomDataProperty()</code> and via <code>commonPipelineEnvironment.setPipelineMeasurement()</code></li>
+<li>Additional data collected via <code>InfluxData.addField(measurement, key, value)</code></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Add custom information to your InfluxDB</p>
@@ -1449,7 +1449,7 @@ Example:</p>
 <tr>
 <td>step_data</td>
 <td>Considered, e.g.:<br /><ul><li>build_url</li><li>bats</li><li>checkmarx</li><li>fortify</li><li>gauge</li><li>nsp</li><li>snyk</li><li>sonar</li><li>...</li></ul></td>
-<td>filled by <code>commonPipelineEnvironment.setInfluxStepData()</code></td>
+<td>filled by <code>InfluxData.addField('step_data', key, value)</code></td>
 </tr>
 </tbody>
 </table>
