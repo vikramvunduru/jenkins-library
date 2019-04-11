@@ -449,35 +449,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#details" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -905,35 +892,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#parameters" title="Parameters" class="md-nav__link">
     Parameters
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#details" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#step-configuration" title="Step configuration" class="md-nav__link">
     Step configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -971,16 +945,11 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>You need to create a personal access token within GitHub and add this to the Jenkins credentials store.</p>
 <p>Please see <a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">GitHub documentation for details about creating the personal access token</a>.</p>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>Usage of pipeline step:</p>
-<div class="codehilite"><pre><span></span><span class="n">githubPublishRelease</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">releaseBodyHeader:</span> <span class="s2">&quot;**This is the latest success!**&lt;br /&gt;&quot;</span>
-</pre></div>
-
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -988,177 +957,171 @@
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>addClosedIssues</code></td>
+<td>no</td>
+<td></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>addDeltaToLastRelease</code></td>
+<td>no</td>
+<td></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>customFilterExtension</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>excludeLabels</code></td>
+<td>no</td>
+<td><code>[duplicate, invalid, question, wontfix]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>githubApiUrl</code></td>
+<td>no</td>
+<td><code>https://api.github.com</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>githubOrg</code></td>
 <td>yes</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>addClosedIssues</td>
-<td>no</td>
-<td><code>false</code></td>
-<td></td>
-</tr>
-<tr>
-<td>addDeltaToLastRelease</td>
-<td>no</td>
-<td><code>false</code></td>
-<td></td>
-</tr>
-<tr>
-<td>customFilterExtension</td>
-<td>no</td>
-<td>``</td>
-<td></td>
-</tr>
-<tr>
-<td>excludeLabels</td>
-<td>no</td>
-<td><ul><li><code>duplicate</code></li><li><code>invalid</code></li><li><code>question</code></li><li><code>wontfix</code></li></ul></td>
-<td></td>
-</tr>
-<tr>
-<td>githubApiUrl</td>
-<td>no</td>
-<td><code>//https://api.github.com</code></td>
-<td></td>
-</tr>
-<tr>
-<td>githubOrg</td>
+<td><code>githubRepo</code></td>
 <td>yes</td>
-<td><code>script.commonPipelineEnvironment.getGitFolder()</code></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>githubRepo</td>
-<td>yes</td>
-<td><code>script.commonPipelineEnvironment.getGitRepo()</code></td>
-<td></td>
-</tr>
-<tr>
-<td>githubServerUrl</td>
+<td><code>githubServerUrl</code></td>
 <td>no</td>
 <td><code>https://github.com</code></td>
 <td></td>
 </tr>
 <tr>
-<td>githubTokenCredentialsId</td>
+<td><code>githubTokenCredentialsId</code></td>
 <td>yes</td>
 <td></td>
-<td></td>
+<td>Jenkins credential id</td>
 </tr>
 <tr>
-<td>releaseBodyHeader</td>
+<td><code>releaseBodyHeader</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>version</td>
+<td><code>script</code></td>
 <td>yes</td>
-<td><code>script.commonPipelineEnvironment.getArtifactVersion()</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>yes</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for storing the measured duration.</li>
-<li>All GitHub related properties allow you to overwrite the default behavior of identifying e.g. GitHub organization, GitHub repository.</li>
-<li><code>version</code> defines the version number which will be written as tag as well as release name</li>
-<li>By defining the <code>releaseBodyHeader</code> you can specify the content which will appear for the release</li>
-<li>If you set <code>addClosedIssues</code> to <code>true</code>, a list of all closed issues and merged pull-requests since the last release will added below the <code>releaseBodyHeader</code></li>
-<li>If you set <code>addDeltaToLastRelease</code> to <code>true</code>, a link will be added to the relese information that brings up all commits since the last release.</li>
-<li>By passing the parameter <code>customFilterExtension</code> it is possible to pass additional filter criteria for retrieving closed issues since the last release. Additional criteria could be for example specific <code>label</code>, or <code>filter</code> according to <a href="https://developer.github.com/v3/issues/">GitHub API documentation</a>.</li>
-<li>It is possible to exclude issues with dedicated labels using parameter <code>excludeLabels</code>. Usage is like <code>excludeLabels: ['label1', 'label2']</code></li>
+<li><code>addClosedIssues</code> - If it is set to <code>true</code>, a list of all closed issues and merged pull-requests since the last release will added below the <code>releaseBodyHeader</code>.</li>
+<li><code>addDeltaToLastRelease</code> - If you set <code>addDeltaToLastRelease</code> to <code>true</code>, a link will be added to the relese information that brings up all commits since the last release.</li>
+<li><code>customFilterExtension</code> - Allows to pass additional filter criteria for retrieving closed issues since the last release. Additional criteria could be for example specific <code>label</code>, or <code>filter</code> according to <a href="https://developer.github.com/v3/issues/">GitHub API documentation</a>.</li>
+<li><code>excludeLabels</code> - Allows to exclude issues with dedicated labels. Usage is like <code>excludeLabels: ['label1', 'label2']</code>.</li>
+<li><code>githubApiUrl</code> - Allows to overwrite the GitHub API url.</li>
+<li><code>githubOrg</code> - Allows to overwrite the GitHub organitation.</li>
+<li><code>githubRepo</code> - Allows to overwrite the GitHub repository.</li>
+<li><code>githubServerUrl</code> - Allows to overwrite the GitHub url.</li>
+<li><code>githubTokenCredentialsId</code> - Allows to overwrite the GitHub token credentials id.</li>
+<li><code>releaseBodyHeader</code> - Allows to specify the content which will appear for the release.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>version</code> - Defines the version number which will be written as tag as well as release name.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
 <p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
-<p>In following sections the configuration is possible:</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
 <table>
 <thead>
 <tr>
 <th>parameter</th>
 <th>general</th>
-<th>step</th>
-<th>stage</th>
+<th>step/stage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>addClosedIssues</code></td>
 <td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>addClosedIssues</td>
-<td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>addDeltaToLastRelease</td>
+<td><code>addDeltaToLastRelease</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>customFilterExtension</td>
+<td><code>customFilterExtension</code></td>
 <td></td>
-<td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>excludeLabels</td>
+<td><code>excludeLabels</code></td>
 <td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>githubApiUrl</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>githubApiUrl</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>githubOrg</td>
+<td><code>githubOrg</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
-<td>githubRepo</td>
+<td><code>githubRepo</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
-<td>githubServerUrl</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>githubTokenCredentialsId</td>
-<td>X</td>
+<td><code>githubServerUrl</code></td>
 <td>X</td>
 <td>X</td>
 </tr>
 <tr>
-<td>releaseBodyHeader</td>
+<td><code>githubTokenCredentialsId</code></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>releaseBodyHeader</code></td>
 <td></td>
 <td>X</td>
-<td>X</td>
 </tr>
 <tr>
-<td>version</td>
+<td><code>script</code></td>
 <td></td>
-<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td></td>
 <td>X</td>
 </tr>
 </tbody>
 </table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p>Usage of pipeline step:</p>
+<div class="codehilite"><pre><span></span><span class="n">githubPublishRelease</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">releaseBodyHeader:</span> <span class="s2">&quot;**This is the latest success!**&lt;br /&gt;&quot;</span>
+</pre></div>
                 
                   
                 
