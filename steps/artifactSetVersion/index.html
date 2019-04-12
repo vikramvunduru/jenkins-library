@@ -950,7 +950,7 @@ If you require strict reproducibility of your builds, this should be used.</p>
 <table>
 <thead>
 <tr>
-<th>parameter</th>
+<th>name</th>
 <th>mandatory</th>
 <th>default</th>
 <th>possible values</th>
@@ -958,139 +958,203 @@ If you require strict reproducibility of your builds, this should be used.</p>
 </thead>
 <tbody>
 <tr>
-<td>script</td>
+<td><code>artifactType</code></td>
+<td>no</td>
+<td></td>
+<td><code>appContainer</code></td>
+</tr>
+<tr>
+<td><code>buildTool</code></td>
 <td>yes</td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td>artifactType</td>
-<td>no</td>
-<td></td>
-<td>'appContainer'</td>
-</tr>
-<tr>
-<td>buildTool</td>
-<td>no</td>
-<td>maven</td>
 <td>docker, dlang, golang, maven, mta, npm, pip, sbt</td>
 </tr>
 <tr>
-<td>commitVersion</td>
+<td><code>commitVersion</code></td>
 <td>no</td>
 <td><code>true</code></td>
 <td><code>true</code>, <code>false</code></td>
 </tr>
 <tr>
-<td>dockerVersionSource</td>
+<td><code>dockerVersionSource</code></td>
 <td>no</td>
-<td><code>''</code></td>
+<td></td>
 <td>FROM, (ENV name),appVersion</td>
 </tr>
 <tr>
-<td>filePath</td>
-<td>no</td>
-<td>buildTool=<code>docker</code>: Dockerfile <br />buildTool=<code>dlang</code>: dub.json <br />buildTool=<code>golang</code>: VERSION <br />buildTool=<code>maven</code>: pom.xml <br />buildTool=<code>mta</code>: mta.yaml <br />buildTool=<code>npm</code>: package.json <br />buildTool=<code>pip</code>: version.txt <br />buildTool=<code>sbt</code>: sbtDescriptor.json</td>
-<td></td>
-</tr>
-<tr>
-<td>gitCommitId</td>
-<td>no</td>
-<td><code>GitUtils.getGitCommitId()</code></td>
-<td></td>
-</tr>
-<tr>
-<td>gitSshCredentialsId</td>
-<td>If <code>commitVersion</code> is <code>true</code></td>
-<td>as defined in custom configuration</td>
-<td></td>
-</tr>
-<tr>
-<td>gitUserEMail</td>
+<td><code>filePath</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>gitUserName</td>
+<td><code>gitCommitId</code></td>
 <td>no</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>gitSshUrl</td>
-<td>If <code>commitVersion</code> is <code>true</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>tagPrefix</td>
+<td><code>gitSshKeyCredentialsId</code></td>
 <td>no</td>
-<td>'build_'</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>timestamp</td>
+<td><code>gitSshUrl</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>gitUserEMail</code></td>
 <td>no</td>
-<td>current time in format according to <code>timestampTemplate</code></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>timestampTemplate</td>
+<td><code>gitUserName</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>tagPrefix</code></td>
+<td>no</td>
+<td><code>build_</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>no</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timestampTemplate</code></td>
 <td>no</td>
 <td><code>%Y%m%d%H%M%S</code></td>
 <td></td>
 </tr>
 <tr>
-<td>versioningTemplate</td>
+<td><code>versioningTemplate</code></td>
 <td>no</td>
-<td>buildTool=<code>docker</code>: <code>${version}-${timestamp}${commitId?"_"+commitId:""}</code><br> /&gt;buildTool=<code>dlang</code>: <code>${version}-${timestamp}${commitId?"+"+commitId:""}</code><br />buildTool=<code>golang</code>:<code>${version}-${timestamp}${commitId?"+"+commitId:""}</code><br />buildTool=<code>maven</code>: <code>${version}-${timestamp}${commitId?"_"+commitId:""}</code><br />buildTool=<code>mta</code>: <code>${version}-${timestamp}${commitId?"+"+commitId:""}</code><br />buildTool=<code>npm</code>: <code>${version}-${timestamp}${commitId?"+"+commitId:""}</code><br />buildTool=<code>pip</code>: <code>${version}.${timestamp}${commitId?"."+commitId:""}</code><br />buildTool=<code>sbt</code>: <code>${version}-${timestamp}${commitId?"+"+commitId:""}</code></td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><code>script</code> defines the global script environment of the Jenkinsfile run. Typically <code>this</code> is passed to this parameter. This allows the function to access the <a href="../commonPipelineEnvironment/"><code>commonPipelineEnvironment</code></a> for retrieving e.g. configuration parameters.</li>
-<li><code>artifactType</code> defines the type of the artifact.</li>
-<li><code>buildTool</code> defines the tool which is used for building the artifact.</li>
-<li><code>commitVersion</code> controls if the changed version is committed and pushed to the git repository. If this is enabled (which is the default), you need to provide <code>gitCredentialsId</code> and <code>gitSshUrl</code>.</li>
-<li>
-<p><code>dockerVersionSource</code> specifies the source to be used for the main version which is used for generating the automatic version.</p>
-</li>
-<li>
-<p>This can either be the version of the base image - as retrieved from the <code>FROM</code> statement within the Dockerfile, e.g. <code>FROM jenkins:2.46.2</code></p>
-</li>
-<li>Alternatively the name of an environment variable defined in the Docker image can be used which contains the version number, e.g. <code>ENV MY_VERSION 1.2.3</code></li>
-<li>
-<p>The third option <code>appVersion</code> applies only to the artifactType <code>appContainer</code>. Here the version of the app which is packaged into the container will be used as version for the container itself.</p>
-</li>
-<li>
-<p>Using <code>filePath</code> you could define a custom path to the descriptor file.</p>
-</li>
-<li><code>gitCommitId</code> defines the version prefix of the automatically generated version. By default it will take the long commitId hash. You could pass any other string (e.g. the short commitId hash) to be used. In case you don't want to have the gitCommitId added to the automatic versioning string you could set the value to an empty string: <code>''</code>.</li>
-<li><code>gitSshCredentialsId</code>defines the ssh git credentials to be used for writing the tag.</li>
-<li>The parameters <code>gitUserName</code> and <code>gitUserEMail</code> allow to overwrite the global git settings available on your Jenkins server</li>
-<li><code>gitSshUrl</code> defines the git ssh url to the source code repository.</li>
-<li><code>tagPrefix</code> defines the prefix wich is used for the git tag which is written during the versioning run.</li>
-<li><code>timestamp</code> defines the timestamp to be used in the automatic version string. You could overwrite the default behavior by explicitly setting this string.</li>
+<li><code>artifactType</code> - Defines the type of the artifact.</li>
+<li><code>buildTool</code> - Defines the tool which is used for building the artifact.</li>
+<li><code>commitVersion</code> - Controls if the changed version is committed and pushed to the git repository. If this is enabled (which is the default), you need to provide <code>gitCredentialsId</code> and <code>gitSshUrl</code>.</li>
+<li><code>dockerVersionSource</code> - Specifies the source to be used for the main version which is used for generating the automatic version. * This can either be the version of the base image - as retrieved from the <code>FROM</code> statement within the Dockerfile, e.g. <code>FROM jenkins:2.46.2</code> * Alternatively the name of an environment variable defined in the Docker image can be used which contains the version number, e.g. <code>ENV MY_VERSION 1.2.3</code> * The third option <code>appVersion</code> applies only to the artifactType <code>appContainer</code>. Here the version of the app which is packaged into the container will be used as version for the container itself.</li>
+<li><code>filePath</code> - Defines a custom path to the descriptor file.</li>
+<li><code>gitCommitId</code> - Defines the version prefix of the automatically generated version. By default it will take the long commitId hash. You could pass any other string (e.g. the short commitId hash) to be used. In case you don't want to have the gitCommitId added to the automatic versioning string you could set the value to an empty string: <code>''</code>.</li>
+<li><code>gitSshKeyCredentialsId</code> - Defines the ssh git credentials to be used for writing the tag.</li>
+<li><code>gitSshUrl</code> - Defines the git ssh url to the source code repository.</li>
+<li><code>gitUserEMail</code> - Allows to overwrite the global git setting 'user.email' available on your Jenkins server.</li>
+<li><code>gitUserName</code> - Allows to overwrite the global git setting 'user.name' available on your Jenkins server.</li>
+<li><code>script</code> - The common script environment of the Jenkinsfile running. Typically the reference to the script calling the pipeline step is provided with the this parameter, as in <code>script: this</code>. This allows the function to access the commonPipelineEnvironment for retrieving, for example, configuration parameters.</li>
+<li><code>tagPrefix</code> - Defines the prefix which is used for the git tag which is written during the versioning run.</li>
+<li><code>timestamp</code> - Defines the timestamp to be used in the automatic version string. You could overwrite the default behavior by explicitly setting this string.</li>
+<li><code>timestampTemplate</code> - Defines the template for the timestamp which will be part of the created version.</li>
+<li><code>versioningTemplate</code> - Defines the template for the automatic version which will be created.</li>
 </ul>
 <h2 id="step-configuration">Step configuration<a class="headerlink" href="#step-configuration" title="Permanent link">&para;</a></h2>
-<p>The following parameters can also be specified as step parameters using the global configuration file:</p>
-<ul>
-<li><code>artifactType</code></li>
-<li><code>buildTool</code></li>
-<li><code>commitVersion</code></li>
-<li><code>dockerVersionSource</code></li>
-<li><code>filePath</code></li>
-<li><code>gitCredentialsId</code></li>
-<li><code>gitUserEMail</code></li>
-<li><code>gitUserName</code></li>
-<li><code>gitSshUrl</code></li>
-<li><code>tagPrefix</code></li>
-<li><code>timestamp</code></li>
-<li><code>timestampTemplate</code></li>
-<li><code>versioningTemplate</code></li>
-</ul>
+<p>We recommend to define values of step parameters via <a href="../../configuration/">config.yml file</a>.</p>
+<p>In following sections of the config.yml the configuration is possible:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>general</th>
+<th>step/stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>artifactType</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>buildTool</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>commitVersion</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>dockerVersionSource</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>filePath</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitCommitId</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>gitSshKeyCredentialsId</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitSshUrl</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitUserEMail</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>gitUserName</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>script</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>tagPrefix</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>timestampTemplate</code></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td><code>versioningTemplate</code></td>
+<td></td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="n">artifactSetVersion</span> <span class="nl">script:</span> <span class="k">this</span><span class="o">,</span> <span class="nl">buildTool:</span> <span class="s1">&#39;maven&#39;</span>
 </pre></div>
