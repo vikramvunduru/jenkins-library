@@ -85,13 +85,6 @@ import static com.sap.piper.Prerequisites.checkScript
      */
     'dockerOptions',
     /**
-     * The path to the archive for deployment to SAP CP. If not provided `mtarFilePath` from commom pipeline environment is used instead.
-     */
-    'source'
-])
-
-@Field Set PARAMETER_KEYS = STEP_CONFIG_KEYS.plus([
-    /**
      * The deployment mode which should be used. Available options are:
      * *`'mta'` - default,
      * *`'warParams'` - deploying WAR file and passing all the deployment parameters via the function call,
@@ -103,8 +96,14 @@ import static com.sap.piper.Prerequisites.checkScript
      * Action mode when using WAR file mode. Available options are `deploy` (default) and `rolling-update` which performs update of an application without downtime in one go.
      * @possibleValues 'deploy', 'rolling-update'
      */
-    'warAction'
+    'warAction',
+    /**
+     * The path to the archive for deployment to SAP CP. If not provided `mtarFilePath` from commom pipeline environment is used instead.
+     */
+    'source'
 ])
+
+@Field Set PARAMETER_KEYS = STEP_CONFIG_KEYS
 
 /**
  * Deploys an Application to SAP Cloud Platform (SAP CP) using the SAP Cloud Platform Console Client (Neo Java Web SDK).
