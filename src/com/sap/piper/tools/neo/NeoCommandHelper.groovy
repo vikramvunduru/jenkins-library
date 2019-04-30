@@ -47,7 +47,7 @@ class NeoCommandHelper {
     }
 
     String deployMta() {
-        return "${prolog()} deploy-mta --synchronous --host hanatrial.ondemand.com --account p2001269540trial --user vikram.vunduru@qentelli.com --password QENTELLI_dev_09 ${source()}"
+        return "${prolog()} deploy-mta --synchronous --host hanatrial.ondemand.com --account p2001269540trial --user vikram.vunduru@qentelli.com --password QENTELLI_dev_09 -s ee1234.mtar"
     }
 
     String cloudCockpitLink() {
