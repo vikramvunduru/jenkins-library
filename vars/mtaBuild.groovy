@@ -119,10 +119,8 @@ void call(Map parameters = [:]) {
 
             echo "[INFO] Executing mta build call: '${mtaCall}'."
 
-            bat """#!/bin/bash
-            export PATH=./node_modules/.bin:${PATH}
-            $mtaCall
-            """
+            bat "SET PATH=node_modules/.bin:${PATH}"
+            bat "${mtaCall}"
 
             script?.commonPipelineEnvironment?.setMtarFilePath(mtarFileName)
         }
