@@ -69,8 +69,8 @@ void call(Map parameters = [:]) {
                 if (projectSettingsFile.startsWith("http")) {
                     projectSettingsFile = downloadSettingsFromUrl(this, projectSettingsFile, 'project-settings.xml')
                 }
-                sh 'mkdir -p $HOME/.m2'
-                sh "cp ${projectSettingsFile} \$HOME/.m2/settings.xml"
+                bat 'mkdir -p $HOME/.m2'
+                bat "cp ${projectSettingsFile} \$HOME/.m2/settings.xml"
             }
 
             String globalSettingsFile = configuration.globalSettingsFile?.trim()
@@ -78,7 +78,7 @@ void call(Map parameters = [:]) {
                 if (globalSettingsFile.startsWith("http")) {
                     globalSettingsFile = downloadSettingsFromUrl(this, globalSettingsFile, 'global-settings.xml')
                 }
-                sh "cp ${globalSettingsFile} \$M2_HOME/conf/settings.xml"
+                bat "cp ${globalSettingsFile} \$M2_HOME/conf/settings.xml"
             }
 
             def mtaYamlName = "mta.yaml"
@@ -99,7 +99,7 @@ void call(Map parameters = [:]) {
             def mtaYaml = readYaml file: mtaYamlName
 
             //[Q]: Why not yaml.dump()? [A]: This reformats the whole file.
-            sh "sed -ie \"s/\\\${timestamp}/`date +%Y%m%d%H%M%S`/g\" \"${mtaYamlName}\""
+            bat "sed -ie \"s/\\\${timestamp}/`date +%Y%m%d%H%M%S`/g\" \"${mtaYamlName}\""
 
             def id = mtaYaml.ID
             if (!id) {
@@ -119,7 +119,7 @@ void call(Map parameters = [:]) {
 
             echo "[INFO] Executing mta build call: '${mtaCall}'."
 
-            sh """#!/bin/bash
+            bat """#!/bin/bash
             export PATH=./node_modules/.bin:${PATH}
             $mtaCall
             """
