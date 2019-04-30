@@ -24,7 +24,7 @@ class NeoCommandHelper {
     }
 
     private String prolog() {
-        return 'neo.bat'
+        return 'c:/neo/tools/neo.bat'
     }
 
     String statusCommand() {
