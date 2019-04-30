@@ -197,7 +197,7 @@ void call(parameters = [:]) {
 private deploy(script, utils, Map configuration, NeoCommandHelper neoCommandHelper, dockerImage, DeployMode deployMode) {
 
     try {
-        sh "mkdir -p logs/neo"
+        bat "mkdir -p logs/neo"
         withEnv(["neo_logging_location=${pwd()}/logs/neo"]) {
             if (deployMode.isWarDeployment()) {
                 ConfigurationHelper.newInstance(this, configuration).withPropertyInValues('warAction', WarAction.stringValues())
@@ -213,21 +213,21 @@ private deploy(script, utils, Map configuration, NeoCommandHelper neoCommandHelp
                 echo "Link to the application dashboard: ${neoCommandHelper.cloudCockpitLink()}"
 
                 if (warAction == WarAction.ROLLING_UPDATE) {
-                    def returnCodeRollingUpdate = sh returnStatus: true, script: neoCommandHelper.rollingUpdateCommand()
+                    def returnCodeRollingUpdate = bat returnStatus: true, script: neoCommandHelper.rollingUpdateCommand()
                     if(returnCodeRollingUpdate != 0){
                         error "[ERROR][${STEP_NAME}] The execution of the deploy command failed, see the log for details."
                     }
                 } else {
-                    def returnCodeDeploy = sh returnStatus: true, script: neoCommandHelper.deployCommand()
+                    def returnCodeDeploy = bat returnStatus: true, script: neoCommandHelper.deployCommand()
                     if(returnCodeDeploy != 0){
                         error "[ERROR][${STEP_NAME}] The execution of the deploy command failed, see the log for details."
                     }
-                    sh neoCommandHelper.restartCommand()
+                    bat neoCommandHelper.restartCommand()
                 }
 
 
             } else if (deployMode == DeployMode.MTA) {
-                def returnCodeMTA = sh returnStatus: true, script: neoCommandHelper.deployMta()
+                def returnCodeMTA = bat returnStatus: true, script: neoCommandHelper.deployMta()
                 if(returnCodeMTA != 0){
                     error "[ERROR][${STEP_NAME}] The execution of the deploy command failed, see the log for details."
                 }
@@ -239,7 +239,7 @@ private deploy(script, utils, Map configuration, NeoCommandHelper neoCommandHelp
         if (dockerImage) {
             echo "Error while deploying to SAP Cloud Platform. Here are the neo.sh logs:"
             try {
-                sh "cat logs/neo/*"
+                bat "cat logs/neo/*"
             } catch(Exception e) {
                 echo "Unable to provide the logs."
                 ex.addSuppressed(e)
@@ -250,7 +250,7 @@ private deploy(script, utils, Map configuration, NeoCommandHelper neoCommandHelp
 }
 
 private boolean isAppRunning(NeoCommandHelper commandHelper) {
-    def status = sh script: "${commandHelper.statusCommand()} || true", returnStdout: true
+    def status = bat script: "${commandHelper.statusCommand()} || true", returnStdout: true
     return status.contains('Status: STARTED')
 }
 
