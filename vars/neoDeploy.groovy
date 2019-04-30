@@ -197,7 +197,7 @@ void call(parameters = [:]) {
 private deploy(script, utils, Map configuration, NeoCommandHelper neoCommandHelper, dockerImage, DeployMode deployMode) {
 
     try {
-        bat "mkdir -p logs/neo"
+        bat "mkdir logs/neo"
         withEnv(["neo_logging_location=${pwd()}/logs/neo"]) {
             if (deployMode.isWarDeployment()) {
                 ConfigurationHelper.newInstance(this, configuration).withPropertyInValues('warAction', WarAction.stringValues())
