@@ -58,12 +58,12 @@ class NeoCommandHelper {
         }
 
         if (deployMode == DeployMode.MTA) {
-            return "https://account.${deploymentConfiguration.host}/cockpit#" +
-                "/acc/${deploymentConfiguration.account}/mtas"
+            return "https://account."+deploymentConfiguration.host+"/cockpit#" +
+                "/acc/"+deploymentConfiguration.account+"/mtas"
         }
 
-        return "https://account.${deploymentConfiguration.host}/cockpit#" +
-            "/acc/${deploymentConfiguration.account}/app/${deploymentConfiguration.application}/dashboard"
+        return "https://account."+deploymentConfiguration.host+"/cockpit#" +
+            "/acc/"+deploymentConfiguration.account+"/app/"+deploymentConfiguration.application+"/dashboard"
     }
 
     String resourceLock() {
