@@ -197,7 +197,7 @@ void call(Map parameters = [:], body) {
                 }
             }
         } else {
-            boolean executeInsideDocker = true
+            boolean executeInsideDocker = false
             if (!JenkinsUtils.isPluginActive(PLUGIN_ID_DOCKER_WORKFLOW)) {
                 echo "[WARNING][${STEP_NAME}] Docker not supported. Plugin '${PLUGIN_ID_DOCKER_WORKFLOW}' is not installed or not active. Configured docker image '${config.dockerImage}' will not be used."
                 executeInsideDocker = false
