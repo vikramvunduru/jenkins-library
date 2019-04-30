@@ -47,23 +47,23 @@ class NeoCommandHelper {
     }
 
     String deployMta() {
-        return "${prolog()} deploy-mta --synchronous ${mainArgs()} ${source()}"
+        return "${prolog()} deploy-mta --synchronous --host hanatrial.ondemand.com --account p2001269540trial --user vikram.vunduru@qentelli.com --password QENTELLI_dev_09 ${source()}"
     }
 
     String cloudCockpitLink() {
         if (deployMode == DeployMode.WAR_PROPERTIES_FILE) {
             Map properties = loadConfigurationFromPropertiesFile()
-            return "https://account.${properties.host}/cockpit#" +
-                "/acc/${properties.account}/app/${properties.application}/dashboard"
+            return "https://account.hanatrial.ondemand.com/cockpit#" +
+                "/acc/p2001269540trial/app/${properties.application}/dashboard"
         }
 
         if (deployMode == DeployMode.MTA) {
-            return "https://account."+deploymentConfiguration.host+"/cockpit#" +
-                "/acc/"+deploymentConfiguration.account+"/mtas"
+            return "https://account.hanatrial.ondemand.com/cockpit#" +
+                "/acc/p2001269540trial/mtas"
         }
 
-        return "https://account."+deploymentConfiguration.host+"/cockpit#" +
-            "/acc/"+deploymentConfiguration.account+"/app/"+deploymentConfiguration.application+"/dashboard"
+        return "https://account.hanatrial.ondemand.com/cockpit#" +
+                "/acc/p2001269540trial/app/"+deploymentConfiguration.application+"/dashboard"
     }
 
     String resourceLock() {
