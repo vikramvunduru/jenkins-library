@@ -16,6 +16,6 @@ class MtaArtifactVersioning extends ArtifactVersioning {
     def setVersion(version) {
         def search = "version: ${getVersion()}"
         def replacement = "version: ${version}"
-        script.sh "sed -i 's/${search}/${replacement}/g' ${configuration.filePath}"
+        bat "sed -i 's/${search}/${replacement}/g' ${configuration.filePath}"
     }
 }
