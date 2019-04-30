@@ -47,7 +47,7 @@ class NeoCommandHelper {
     }
 
     String deployMta() {
-        return "${prolog()} deploy --synchronous ${mainArgs()} ${source()}"
+        return "${prolog()} deploy-mta --synchronous ${mainArgs()} ${source()}"
     }
 
     String cloudCockpitLink() {
