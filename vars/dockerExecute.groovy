@@ -197,13 +197,13 @@ void call(Map parameters = [:], body) {
                 }
             }
         } else {
-            boolean executeInsideDocker = false
+            boolean executeInsideDocker = true
             if (!JenkinsUtils.isPluginActive(PLUGIN_ID_DOCKER_WORKFLOW)) {
                 echo "[WARNING][${STEP_NAME}] Docker not supported. Plugin '${PLUGIN_ID_DOCKER_WORKFLOW}' is not installed or not active. Configured docker image '${config.dockerImage}' will not be used."
                 executeInsideDocker = false
             }
 
-            returnCode = sh script: 'docker ps -q > /dev/null', returnStatus: true
+            returnCode = 100//sh script: 'docker ps -q > /dev/null', returnStatus: true
             if (returnCode != 0) {
                 echo "[WARNING][$STEP_NAME] Cannot connect to docker daemon (command 'docker ps' did not return with '0'). Configured docker image '${config.dockerImage}' will not be used."
                 executeInsideDocker = false
